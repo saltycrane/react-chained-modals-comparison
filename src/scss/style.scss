@@ -1,0 +1,40 @@
+@import "bootstrap";
+
+.margin-sm-top { margin-top: 5px; }
+.margin-sm-bottom { margin-bottom: 5px; }
+.margin-md-top { margin-top: 10px; }
+.margin-md-bottom { margin-bottom: 10px; }
+.margin-lg-top { margin-top: 20px; }
+.margin-lg-bottom { margin-bottom: 20px; }
+.margin-xl-top { margin-top: 30px; }
+.margin-xl-bottom { margin-bottom: 30px; }
+
+.margin-sm-left { margin-left: 5px; }
+.margin-sm-right { margin-right: 5px; }
+.margin-md-left { margin-left: 10px; }
+.margin-md-right { margin-right: 10px; }
+.margin-lg-left { margin-left: 20px; }
+.margin-lg-right { margin-right: 20px; }
+
+.border { border: 1px solid #CCC; }
+.border-dark { border: 1px solid #D7D7D7; }
+.border-top { border-top: 1px solid #CCC; }
+.border-top-dark { border-top: 1px solid #D7D7D7; }
+.border-left { border-left: 1px solid #CCC; }
+.border-right { border-right: 1px solid #CCC; }
+.border-bottom-dark { border-bottom: 1px solid #D7D7D7; }
+
+.comment-metadata {
+    color: #999;
+    font-size: 80%;
+}
+
+.img-container {
+    display: inline-block;
+    position: relative;
+    .btn-delete {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+}
