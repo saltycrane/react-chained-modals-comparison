@@ -11,6 +11,7 @@
   "dependencies": {
     "bootstrap-sass": "3.3.6",
     "react": "0.14.7",
+    "react-bootstrap": "0.28.3",
     "react-dom": "0.14.7",
     "react-redux": "4.4.0",
     "react-router": "2.0.0",

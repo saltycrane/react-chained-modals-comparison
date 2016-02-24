@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 
-import About from '../components/About';
+import ModalName from '../components/ModalName';
+import ModalPhone from '../components/ModalPhone';
+import PageBehindModals from '../components/PageBehindModals';
+import ChainedModals from './ChainedModals';
 
 
 export default class App extends Component {
   render() {
     return (
       <div>
-        Start
+        <PageBehindModals />
+        <ChainedModals modalList={[ModalName, ModalPhone]} />
       </div>
     );
   }
