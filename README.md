@@ -23,3 +23,5 @@
 
  - Display data from the server pre-filled in the user input boxes
  - Using the browser Back and Forward navigation should preserve the user's input
+   Start to see a need for Redux here. Need to save modal state in parent component.
+   It works w/o Redux with limitations. If we navigate to the end of the modal chain, the state is lost.

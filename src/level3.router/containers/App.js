@@ -26,15 +26,15 @@ const ModalSequenceA = (props) => (
 export default class RoutedApp extends Component {
   render() {
     return (
-        <Router history={hashHistory}>
-          <Route component={App}>
-            <Route path="/" component={ModalSequenceA}>
-              <Route path="/name" component={ModalName} />
-              <Route path="/phone" component={ModalPhone} />
-            </Route>
-            <Route path="/done" />
+      <Router history={hashHistory}>
+        <Route component={App}>
+          <Route path="/" component={ModalSequenceA}>
+            <Route path="/name" component={ModalName} />
+            <Route path="/phone" component={ModalPhone} />
           </Route>
-        </Router>
+          <Route path="/done" />
+        </Route>
+      </Router>
     );
   }
 }
