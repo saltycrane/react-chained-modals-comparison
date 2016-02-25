@@ -3,10 +3,10 @@ require('./scss/style.scss');
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// import App from './level1.react/containers/App';
-// import App from './level2.router/containers/App';
-// import App from './level3.router/containers/App';
-import App from './level4.router/containers/App';
+// import App from './L1.react/containers/App';
+// import App from './L2.react.router/containers/App';
+// import App from './L3.react.router/containers/App';
+import App from './L4.react.router/containers/App';
 
 
 ReactDOM.render(
