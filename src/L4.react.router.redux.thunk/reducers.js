@@ -19,7 +19,7 @@ const initialState = {
   errorMsg: null,
   requestStatus: null,
   formData: {
-    name: null,
+    name: 'Backend',
     phone: null
   }
 };
@@ -50,6 +50,7 @@ function _sequencing(state, action) {
         requestStatus: 'REQUESTING',
         errorMsg: null
       }
+
     case STORE_NAME_SUCCEEDED:
     case STORE_PHONE_SUCCEEDED:
       return {
@@ -57,6 +58,7 @@ function _sequencing(state, action) {
         requestStatus: 'SUCCEEDED',
         errorMsg: null
       }
+
     case STORE_NAME_FAILED:
     case STORE_PHONE_FAILED:
       return {
@@ -64,6 +66,7 @@ function _sequencing(state, action) {
         requestStatus: 'FAILED',
         errorMsg: action.errorMsg
       }
+
     default:
       return state;
   }
@@ -82,6 +85,7 @@ function _formData(state, action) {
         ...state,
         phone: action.phone
       }
+
     default:
       return state;
   }

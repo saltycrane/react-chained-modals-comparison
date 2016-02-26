@@ -1,11 +1,11 @@
-export const SET_CURRENT_INDEX = 'SET_CURRENT_INDEX';
+export const ROUTE_CHANGED = 'ROUTE_CHANGED';
 export const STORE_NAME = 'STORE_NAME';
 export const STORE_PHONE = 'STORE_PHONE';
 
-export function setCurrentIndex(currIndex) {
+export function routeChanged(location) {
   return {
-    type: SET_CURRENT_INDEX,
-    currIndex: currIndex
+    type: ROUTE_CHANGED,
+    location: location
   }
 }
 

@@ -32,19 +32,13 @@ class App extends Component {
   }
 }
 
-const ModalSequenceA = (props) => (
-  <ChainedModals
-    modalList={['/name', '/phone', '/done']}
-    formData={{name: 'Backend'}}
-    {...props} />);
-
 export default class RoutedApp extends Component {
   render() {
     return (
       <Provider store={store}>
         <Router history={hashHistory}>
           <Route component={App}>
-            <Route path="/" component={ModalSequenceA}>
+            <Route path="/" component={ChainedModals}>
               <Route path="/name" component={ModalName} />
               <Route path="/phone" component={ModalPhone} />
             </Route>

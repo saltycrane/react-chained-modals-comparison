@@ -1,14 +1,19 @@
 import {
-  SET_CURRENT_INDEX,
+  ROUTE_CHANGED,
   STORE_NAME,
   STORE_PHONE
 } from './actions';
 
 
 const initialState = {
+  modalList: [
+    '/name',
+    '/phone',
+    '/done'
+  ],
   currIndex: null,
   formData: {
-    name: null,
+    name: 'Backend',
     phone: null
   }
 };
@@ -22,11 +27,15 @@ function modalsReducer(state = initialState, action) {
 
 function _sequencing(state, action) {
   switch (action.type) {
-    case SET_CURRENT_INDEX:
+    case ROUTE_CHANGED:
+      const { location: { pathname } } = action;
+      const index = state.modalList.findIndex(path => path === pathname);
+
       return {
         ...state,
-        currIndex: action.currIndex
+        currIndex: index
       };
+
     default:
       return state;
   }
@@ -39,11 +48,13 @@ function _formData(state, action) {
         ...state,
         name: action.name
       }
+
     case STORE_PHONE:
       return {
         ...state,
         phone: action.phone
       }
+
     default:
       return state;
   }

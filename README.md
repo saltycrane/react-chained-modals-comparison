@@ -32,20 +32,24 @@
 
 #### L4 with Redux but no thunks
 
- - State is stored both in Redux and the modal components which may be undesireable
-   The modal components make the ajax calls.
-   The ChainedModals wrapper component does the route changes.
+ - Redux is used to hold the user data and keep track of current modal.
+ - Wrapper component is still used to navigate to the next modal.
+ - Individual modal components make the ajax calls.
+ - State and functionality is managed by both Redux and components which may be undesireable.
 
 #### L4 with Redux and redux-thunk
 
  - Move ajax calls to actions.js using redux-thunk.
- - Move more navigation from component to redux.
- - More state is now in redux but the component still has to do some management
+ - Move navigation from component to actions using redux-thunk.
+ - More state is now in redux but the component still does some management
    i.e. check when the redux state says the request is successful then advance to the next modal
  - A negative: using componentWillReceiveProps to trigger `gotoNext`.
-   Prefer to do this in a .then() so it's more connected.
+   Prefer to do this in a .then() so it's more connected like Dan Abramov
+   showed in http://stackoverflow.com/a/35641680/101911
+ - Related code is spread amongst actions, reducers and components.
 
 ### L5 - complexity level 5
 
  - Support conditionally shown modals
    e.g. if a validation step fails, the modal will be shown. Otherwise, it is skipped.
+   Skip a modal based on conditions present at time of page load (e.g. backend says so).

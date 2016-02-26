@@ -2,19 +2,13 @@ import React, { Component } from 'react';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 
-import {
-  setCurrentIndex,
-  storeName,
-  storePhone
-} from '../actions';
+import { storeName, storePhone } from '../actions';
 import ModalBackdrop from '../components/ModalBackdrop';
 
 
 class ChainedModals extends Component {
   constructor(props) {
     super(props);
-
-    this.modalList = props.modalList;
 
     this._gotoNext = this._gotoNext.bind(this);
     this._handleModalHide = this._handleModalHide.bind(this);
@@ -43,27 +37,11 @@ class ChainedModals extends Component {
     );
   }
 
-  componentWillMount() {
-    this._setIndexFromRoute(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this._setIndexFromRoute(nextProps);
-  }
-
-  _setIndexFromRoute(props) {
-    const { setCurrentIndex, location: { pathname } } = props;
-    // TODO: move modalList to Redux
-    const index = this.modalList.findIndex(path => path === pathname);
-    setCurrentIndex(index);
-  }
-
   _gotoNext() {
-    const { currIndex, setCurrentIndex } = this.props;
+    const { currIndex, modalList } = this.props;
     const nextIndex = currIndex + 1;
-    const nextRoute = this.modalList[nextIndex];
+    const nextRoute = modalList[nextIndex];
 
-    setCurrentIndex(nextIndex);
     hashHistory.push(nextRoute);
   }
 
@@ -74,13 +52,11 @@ class ChainedModals extends Component {
 
 export default connect(
   function mapStateToProps(state) {
-    const { currIndex, formData } = state;
-    return { currIndex, formData };
+    const { currIndex, modalList, formData } = state;
+    return { currIndex, modalList, formData };
   },
   function mapDispatchToProps(dispatch) {
     return {
-      // gotoNext: (...args) => dispatch(gotoNext(...args)),
-      setCurrentIndex: (...args) => dispatch(setCurrentIndex(...args)),
       storeName: (...args) => dispatch(storeName(...args)),
       storePhone: (...args) => dispatch(storePhone(...args))
     }
