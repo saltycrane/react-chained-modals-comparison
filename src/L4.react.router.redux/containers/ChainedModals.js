@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { hashHistory } from 'react-router';
+import { connect } from 'react-redux';
 
+import {
+  setCurrentIndex,
+  storeName,
+  storePhone
+} from '../actions';
 import ModalBackdrop from '../components/ModalBackdrop';
 
 
-export default class ChainedModals extends Component {
+class ChainedModals extends Component {
   constructor(props) {
     super(props);
 
@@ -15,18 +21,18 @@ export default class ChainedModals extends Component {
   }
 
   render() {
-    const { children } = this.props;
-    const { currIndex } = this.state;
+    const { children, currIndex, ...props } = this.props;
 
     // Clone the child view element so we can pass props to it.
     // Taken from this react-router example:
     // https://github.com/reactjs/react-router/blob/v2.0.0/examples/passing-props-to-children/app.js
     const modalElement = children && React.cloneElement(children, {
       step: currIndex + 1,
-      gotoNext: this._gotoNext,
       backdrop: false,
       show: true,
-      onHide: this._handleModalHide
+      gotoNext: this._gotoNext,
+      onHide: this._handleModalHide,
+      ...props
     });
 
     return (
@@ -46,17 +52,18 @@ export default class ChainedModals extends Component {
   }
 
   _setIndexFromRoute(props) {
-    const { location: { pathname } } = props;
+    const { setCurrentIndex, location: { pathname } } = props;
+    // TODO: move modalList to Redux
     const index = this.modalList.findIndex(path => path === pathname);
-    this.setState({currIndex: index});
+    setCurrentIndex(index);
   }
 
   _gotoNext() {
-    const { currIndex } = this.state;
+    const { currIndex, setCurrentIndex } = this.props;
     const nextIndex = currIndex + 1;
     const nextRoute = this.modalList[nextIndex];
 
-    this.setState({currIndex: nextIndex});
+    setCurrentIndex(nextIndex);
     hashHistory.push(nextRoute);
   }
 
@@ -64,3 +71,18 @@ export default class ChainedModals extends Component {
     hashHistory.push('/done');
   }
 }
+
+export default connect(
+  function mapStateToProps(state) {
+    const { currIndex, formData } = state;
+    return { currIndex, formData };
+  },
+  function mapDispatchToProps(dispatch) {
+    return {
+      // gotoNext: (...args) => dispatch(gotoNext(...args)),
+      setCurrentIndex: (...args) => dispatch(setCurrentIndex(...args)),
+      storeName: (...args) => dispatch(storeName(...args)),
+      storePhone: (...args) => dispatch(storePhone(...args))
+    }
+  }
+)(ChainedModals);

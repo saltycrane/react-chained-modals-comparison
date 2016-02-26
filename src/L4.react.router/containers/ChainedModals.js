@@ -27,7 +27,7 @@ export default class ChainedModals extends Component {
   }
 
   render() {
-    const { children, ...props } = this.props;
+    const { children } = this.props;
     const { currIndex, formData } = this.state;
 
     // Clone the child view element so we can pass props to it.
