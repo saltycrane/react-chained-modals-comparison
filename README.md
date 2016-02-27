@@ -13,6 +13,10 @@ Approaches compared:
  - React + React Router + Redux + Redux Thunk
  - hopefully: React + React Router + Redux + Redux Saga
  
+## Demo
+
+http://saltycrane.github.io/react-chained-modals-comparison
+ 
 ## Usage
 
     $ npm start
