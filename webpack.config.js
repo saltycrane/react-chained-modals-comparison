@@ -24,7 +24,7 @@ var common = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Comments',
+      title: 'React Chained Modals Comparison',
       template: 'src/index-template.html',
       inject: 'body'
     })
