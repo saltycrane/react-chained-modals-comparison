@@ -10,9 +10,24 @@ export function request(url, value) {
             reject('Specify first and last name.');
           }
           break;
+
         case '/api/phone':
           resolve();
           break;
+
+        case '/api/check':
+          const { phone } = value;
+          const isValid = phone && phone.replace(/\D/g, '').length === 10
+
+          if (isValid) {
+            console.log('check ok');
+            resolve();
+          } else {
+            console.log('check failed');
+            reject('Check failed.');
+          }
+          break;
+
         default:
           reject('Invalid URL passed to simulated api.')
       }

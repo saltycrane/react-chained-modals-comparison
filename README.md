@@ -77,3 +77,7 @@ http://saltycrane.github.io/react-chained-modals-comparison
  - Support conditionally shown modals
    e.g. if a validation step fails, the modal will be shown. Otherwise, it is skipped.
    Skip a modal based on conditions present at time of page load (e.g. backend says so).
+
+#### with redux-thunk
+
+ - Promise related code looks a little ugly

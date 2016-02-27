@@ -8,7 +8,8 @@ import ReactDOM from 'react-dom';
 // import App from './L3.react.router/containers/App';
 // import App from './L4.react.router/containers/App';
 // import App from './L4.react.router.redux/containers/App';
-import App from './L4.react.router.redux.thunk/containers/App';
+// import App from './L4.react.router.redux.thunk/containers/App';
+import App from './L5.react.router.redux.thunk/containers/App';
 
 
 ReactDOM.render(
