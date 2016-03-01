@@ -48,12 +48,12 @@ function *gotoIndex(nextIndex) {
   const state = yield select();
   const { modalList } = state;
   const nextRoute = modalList[nextIndex];
-  const shouldShow = SHOULD_SHOW_MAP[nextRoute];
+  const shouldShowFn = SHOULD_SHOW_MAP[nextRoute];
+  const shouldShow = yield call(shouldShowFn, state);
 
-  try {
-    yield call(shouldShow, state);
+  if (shouldShow) {
     hashHistory.push(nextRoute);
-  } catch (e) {
+  } else {
     yield *gotoIndex(nextIndex + 1);
   }
 }
@@ -63,27 +63,15 @@ function *gotoDone() {
 }
 
 function alwaysShow() {
-  return Promise.resolve();
+  return Promise.resolve(true);
 }
 
 function shouldShowCheck(state) {
   const { formData } = state;
 
-  // create a new promise here to invert the resolve/reject
-  // i.e. a resolve from the API causes a reject here and vice versa
-  // is there a better way to do this?
-  return new Promise(function (resolve, reject) {
-    request('/api/check', formData)
-      .then(() => {
-        reject('check view is not required');
-      })
-      .catch(() => {
-        resolve('check view is required due to failed validation');
-      });
-      // .catch((error) => {
-      //   console.error(error.stack);
-      // });
-  });
+  return request('/api/check', formData)
+    .then(() => false)
+    .catch(() => true);
 }
 
 function *watchStoreName() {
