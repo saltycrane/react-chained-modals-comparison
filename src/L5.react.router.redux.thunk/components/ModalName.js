@@ -44,14 +44,6 @@ export default class ModalName extends Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { requestStatus, gotoNext } = nextProps;
-
-    if (requestStatus === 'SUCCEEDED') {
-      gotoNext();
-    }
-  }
-
   _handleInputChange() {
     this.setState({
       name: this._input.getValue()

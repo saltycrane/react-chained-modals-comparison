@@ -125,6 +125,7 @@ export function storeName(name) {
     return request('/api/name', name)
       .then(() => {
         dispatch(_storeNameSucceeded(name));
+        dispatch(gotoNext());
       })
       .catch(error => {
         dispatch(_storeNameFailed(error));
@@ -142,6 +143,7 @@ export function storePhone(phone) {
     return request('/api/phone', phone)
       .then(() => {
         dispatch(_storePhoneSucceeded(phone));
+        dispatch(gotoNext());
       })
       .catch(error => {
         dispatch(_storePhoneFailed(error));

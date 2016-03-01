@@ -44,14 +44,6 @@ export default class ModalPhone extends Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { requestStatus, gotoNext } = nextProps;
-
-    if (requestStatus === 'SUCCEEDED') {
-      gotoNext();
-    }
-  }
-
   _handleInputChange() {
     this.setState({
       phone: this._input.getValue()
