@@ -5,9 +5,7 @@ import {
   STORE_NAME_FAILED,
   STORE_PHONE_REQUESTED,
   STORE_PHONE_SUCCEEDED,
-  STORE_PHONE_FAILED,
-  alwaysShow,
-  shouldShowCheck
+  STORE_PHONE_FAILED
 } from './actions';
 
 
@@ -17,12 +15,6 @@ const initialState = {
     '/phone',
     '/check',
     '/done'
-  ],
-  shouldShowList: [
-    alwaysShow,  // always show /name
-    alwaysShow,  // always show /phone
-    shouldShowCheck,  // conditionally show /check
-    alwaysShow  // always show /done
   ],
   currIndex: null,
   errorMsg: null,

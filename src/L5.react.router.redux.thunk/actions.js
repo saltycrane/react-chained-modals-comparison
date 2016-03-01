@@ -3,6 +3,13 @@ import { hashHistory } from 'react-router';
 import { request } from '../request-simulator';
 
 
+const SHOULD_SHOW_MAP = {
+  '/name': alwaysShow,
+  '/phone': alwaysShow,
+  '/check': shouldShowCheck,
+  '/done': alwaysShow
+};
+
 export const ROUTE_CHANGED = 'ROUTE_CHANGED';
 export const STORE_NAME_REQUESTED = 'STORE_NAME_REQUESTED';
 export const STORE_NAME_SUCCEEDED = 'STORE_NAME_SUCCEEDED';
@@ -68,9 +75,9 @@ export function gotoNext() {
 
 export function _gotoIndex(index) {
   return (dispatch, getState) => {
-    const { modalList, shouldShowList } = getState();
+    const { modalList } = getState();
     const nextRoute = modalList[index];
-    const shouldShow = shouldShowList[index];
+    const shouldShow = SHOULD_SHOW_MAP[nextRoute];
 
     shouldShow(dispatch, getState)
       .then(() => {

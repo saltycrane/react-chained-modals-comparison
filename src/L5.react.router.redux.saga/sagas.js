@@ -6,6 +6,13 @@ import { request } from '../request-simulator';
 import * as actions from './actions';
 
 
+const SHOULD_SHOW_MAP = {
+  '/name': alwaysShow,
+  '/phone': alwaysShow,
+  '/check': shouldShowCheck,
+  '/done': alwaysShow
+};
+
 function *storeName(action) {
   const { name } = action;
 
@@ -39,9 +46,9 @@ function *gotoNext() {
 
 function *gotoIndex(nextIndex) {
   const state = yield select();
-  const { modalList, shouldShowList } = state;
+  const { modalList } = state;
   const nextRoute = modalList[nextIndex];
-  const shouldShow = shouldShowList[nextIndex];
+  const shouldShow = SHOULD_SHOW_MAP[nextRoute];
 
   try {
     yield call(shouldShow, state);
@@ -55,11 +62,11 @@ function *gotoDone() {
   hashHistory.push('/done');
 }
 
-export function alwaysShow() {
+function alwaysShow() {
   return Promise.resolve();
 }
 
-export function shouldShowCheck(state) {
+function shouldShowCheck(state) {
   const { formData } = state;
 
   // create a new promise here to invert the resolve/reject
