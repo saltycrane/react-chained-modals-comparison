@@ -35,8 +35,8 @@ class ChainedModals extends Component {
 
 export default connect(
   function mapStateToProps(state) {
-    const { currIndex, modalList, requestStatus, errorMsg, formData } = state;
-    return { currIndex, modalList, requestStatus, errorMsg, formData };
+    const { currIndex, modalList, requestStatus, apiName, errorMsg, formData } = state;
+    return { currIndex, modalList, requestStatus, apiName, errorMsg, formData };
   },
   function mapDispatchToProps(dispatch) {
     return {

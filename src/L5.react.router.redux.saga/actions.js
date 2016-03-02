@@ -7,6 +7,9 @@ export const STORE_NAME_FAILED = 'STORE_NAME_FAILED';
 export const STORE_PHONE_REQUESTED = 'STORE_PHONE_REQUESTED';
 export const STORE_PHONE_SUCCEEDED = 'STORE_PHONE_SUCCEEDED';
 export const STORE_PHONE_FAILED = 'STORE_PHONE_FAILED';
+export const CALL_CHECK_REQUESTED = 'CALL_CHECK_REQUESTED';
+export const CALL_CHECK_SUCCEEDED = 'CALL_CHECK_SUCCEEDED';
+export const CALL_CHECK_FAILED = 'CALL_CHECK_FAILED';
 
 export function storeName(name) {
   return {
@@ -47,6 +50,24 @@ export function storePhoneFailed(errorMsg) {
   return {
     type: STORE_PHONE_FAILED,
     errorMsg: errorMsg
+  };
+}
+
+export function callCheck() {
+  return {
+    type: CALL_CHECK_REQUESTED
+  };
+}
+
+export function callCheckSucceeded() {
+  return {
+    type: CALL_CHECK_SUCCEEDED
+  };
+}
+
+export function callCheckFailed() {
+  return {
+    type: CALL_CHECK_FAILED
   };
 }
 

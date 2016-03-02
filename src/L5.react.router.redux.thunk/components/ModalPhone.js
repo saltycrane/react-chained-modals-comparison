@@ -16,7 +16,7 @@ export default class ModalPhone extends Component {
   }
 
   render() {
-    const { step, requestStatus, errorMsg, ...props } = this.props;
+    const { step, requestStatus, apiName, errorMsg, ...props } = this.props;
     const { phone } = this.state;
 
     return (
@@ -25,7 +25,8 @@ export default class ModalPhone extends Component {
           <Modal.Title>Step {step} - Phone Number</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {requestStatus === 'REQUESTING' && <p><em>Making fake ajax request...</em></p>}
+          {requestStatus === 'REQUESTING' &&
+           <p><em>{`Making fake ajax request to ${apiName} api...`}</em></p>}
           {errorMsg && <p><em>{errorMsg}</em></p>}
           <Input
             label="Enter your phone number"

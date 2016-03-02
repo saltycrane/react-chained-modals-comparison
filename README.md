@@ -71,9 +71,8 @@ http://saltycrane.github.io/react-chained-modals-comparison
 
 ### L5 - complexity level 5
 
- - Support conditionally shown modals
+ - Support conditionally shown modals based on result of an ajax call
    e.g. if a validation step fails, the modal will be shown. Otherwise, it is skipped.
-   Skip a modal based on conditions present at time of page load (e.g. backend says so).
 
 #### [React + React Router + Redux + Redux Thunk](/src/L5.react.router.redux.thunk)
 
@@ -81,6 +80,10 @@ http://saltycrane.github.io/react-chained-modals-comparison
 
 #### [React + React Router + Redux + Redux Saga](/src/L5.react.router.redux.saga)
 
+ - Probably there is still not enough complexity for Redux Saga to really shine,
+   but it looks a little better to me.
+
 ## See also
 
  - http://stackoverflow.com/a/35641680/101911
+ - https://medium.com/@MattiaManzati/tips-to-handle-authentication-in-redux-2-introducing-redux-saga-130d6872fbe7

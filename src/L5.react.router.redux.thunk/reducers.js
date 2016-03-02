@@ -5,7 +5,10 @@ import {
   STORE_NAME_FAILED,
   STORE_PHONE_REQUESTED,
   STORE_PHONE_SUCCEEDED,
-  STORE_PHONE_FAILED
+  STORE_PHONE_FAILED,
+  CALL_CHECK_REQUESTED,
+  CALL_CHECK_SUCCEEDED,
+  CALL_CHECK_FAILED
 } from './actions';
 
 
@@ -18,6 +21,7 @@ const initialState = {
   ],
   currIndex: null,
   errorMsg: null,
+  apiName: null,
   requestStatus: null,
   formData: {
     name: 'Backend',
@@ -45,28 +49,46 @@ function _sequencing(state, action) {
       };
 
     case STORE_NAME_REQUESTED:
+      return {
+        ...state,
+        requestStatus: 'REQUESTING',
+        errorMsg: null,
+        apiName: 'name'
+      };
+
     case STORE_PHONE_REQUESTED:
       return {
         ...state,
         requestStatus: 'REQUESTING',
-        errorMsg: null
-      }
+        errorMsg: null,
+        apiName: 'phone'
+      };
+
+    case CALL_CHECK_REQUESTED:
+      return {
+        ...state,
+        requestStatus: 'REQUESTING',
+        errorMsg: null,
+        apiName: 'check'
+      };
 
     case STORE_NAME_SUCCEEDED:
     case STORE_PHONE_SUCCEEDED:
+    case CALL_CHECK_SUCCEEDED:
       return {
         ...state,
         requestStatus: 'SUCCEEDED',
         errorMsg: null
-      }
+      };
 
     case STORE_NAME_FAILED:
     case STORE_PHONE_FAILED:
+    case CALL_CHECK_FAILED:
       return {
         ...state,
         requestStatus: 'FAILED',
         errorMsg: action.errorMsg
-      }
+      };
 
     default:
       return state;
@@ -79,13 +101,13 @@ function _formData(state, action) {
       return {
         ...state,
         name: action.name
-      }
+      };
 
     case STORE_PHONE_SUCCEEDED:
       return {
         ...state,
         phone: action.phone
-      }
+      };
 
     default:
       return state;

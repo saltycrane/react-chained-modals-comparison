@@ -13,6 +13,48 @@ const SHOULD_SHOW_MAP = {
   '/done': alwaysShow
 };
 
+function *gotoNext() {
+  const { currIndex } = yield select();
+
+  yield *gotoIndex(currIndex + 1);
+}
+
+function *gotoIndex(nextIndex) {
+  const state = yield select();
+  const { modalList } = state;
+  const nextRoute = modalList[nextIndex];
+  const shouldShowFn = SHOULD_SHOW_MAP[nextRoute];
+  const shouldShow = yield* shouldShowFn();
+
+  if (shouldShow) {
+    hashHistory.push(nextRoute);
+  } else {
+    yield *gotoIndex(nextIndex + 1);
+  }
+}
+
+function *alwaysShow() {
+  return true;
+}
+
+function *shouldShowCheck() {
+  const { formData } = yield select();
+
+  yield put(actions.callCheck());
+  try {
+    yield call(request, '/api/check', formData);
+    yield put(actions.callCheckSucceeded());
+    return false;
+  } catch (e) {
+    yield put(actions.callCheckFailed());
+    return true;
+  }
+}
+
+function *gotoDone() {
+  hashHistory.push('/done');
+}
+
 function *storeName(action) {
   const { name } = action;
 
@@ -37,41 +79,12 @@ function *storePhone(action) {
   }
 }
 
-function *gotoNext() {
-  const state = yield select();
-  const { currIndex } = state;
-
-  yield *gotoIndex(currIndex + 1);
+function *watchGotoNext() {
+  yield *takeEvery(actions.GOTO_NEXT, gotoNext);
 }
 
-function *gotoIndex(nextIndex) {
-  const state = yield select();
-  const { modalList } = state;
-  const nextRoute = modalList[nextIndex];
-  const shouldShowFn = SHOULD_SHOW_MAP[nextRoute];
-  const shouldShow = yield call(shouldShowFn, state);
-
-  if (shouldShow) {
-    hashHistory.push(nextRoute);
-  } else {
-    yield *gotoIndex(nextIndex + 1);
-  }
-}
-
-function *gotoDone() {
-  hashHistory.push('/done');
-}
-
-function alwaysShow() {
-  return Promise.resolve(true);
-}
-
-function shouldShowCheck(state) {
-  const { formData } = state;
-
-  return request('/api/check', formData)
-    .then(() => false)
-    .catch(() => true);
+function *watchGotoDone() {
+  yield *takeEvery(actions.GOTO_DONE, gotoDone);
 }
 
 function *watchStoreName() {
@@ -82,19 +95,11 @@ function *watchStorePhone() {
   yield *takeEvery(actions.STORE_PHONE_REQUESTED, storePhone);
 }
 
-function *watchGotoNext() {
-  yield *takeEvery(actions.GOTO_NEXT, gotoNext);
-}
-
-function *watchGotoDone() {
-  yield *takeEvery(actions.GOTO_DONE, gotoDone);
-}
-
 export default function *modals() {
   yield [
-    fork(watchStoreName),
-    fork(watchStorePhone),
     fork(watchGotoNext),
-    fork(watchGotoDone)
+    fork(watchGotoDone),
+    fork(watchStoreName),
+    fork(watchStorePhone)
   ]
 }

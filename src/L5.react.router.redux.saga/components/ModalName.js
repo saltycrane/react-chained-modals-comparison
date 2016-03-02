@@ -16,7 +16,7 @@ export default class ModalName extends Component {
   }
 
   render() {
-    const { step, requestStatus, errorMsg, ...props } = this.props;
+    const { step, requestStatus, apiName, errorMsg, ...props } = this.props;
     const { name } = this.state;
 
     return (
@@ -25,7 +25,8 @@ export default class ModalName extends Component {
           <Modal.Title>Step {step} - Name</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {requestStatus === 'REQUESTING' && <p><em>Making fake ajax request...</em></p>}
+          {requestStatus === 'REQUESTING' &&
+           <p><em>{`Making fake ajax request to ${apiName} api...`}</em></p>}
           {errorMsg && <p><em>{errorMsg}</em></p>}
           <Input
             label="Enter your name"

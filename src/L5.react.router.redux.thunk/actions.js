@@ -17,6 +17,9 @@ export const STORE_NAME_FAILED = 'STORE_NAME_FAILED';
 export const STORE_PHONE_REQUESTED = 'STORE_PHONE_REQUESTED';
 export const STORE_PHONE_SUCCEEDED = 'STORE_PHONE_SUCCEEDED';
 export const STORE_PHONE_FAILED = 'STORE_PHONE_FAILED';
+export const CALL_CHECK_REQUESTED = 'CALL_CHECK_REQUESTED';
+export const CALL_CHECK_SUCCEEDED = 'CALL_CHECK_SUCCEEDED';
+export const CALL_CHECK_FAILED = 'CALL_CHECK_FAILED';
 
 function _storeNameRequested() {
   return {
@@ -55,6 +58,24 @@ function _storePhoneFailed(errorMsg) {
   return {
     type: STORE_PHONE_FAILED,
     errorMsg: errorMsg
+  };
+}
+
+function _callCheckRequested() {
+  return {
+    type: CALL_CHECK_REQUESTED
+  };
+}
+
+function _callCheckSucceeded() {
+  return {
+    type: CALL_CHECK_SUCCEEDED
+  };
+}
+
+function _callCheckFailed() {
+  return {
+    type: CALL_CHECK_FAILED
   };
 }
 
@@ -100,16 +121,16 @@ export function shouldShowCheck(dispatch, getState) {
   // i.e. a resolve from the API causes a reject here and vice versa
   // is there a better way to do this?
   return new Promise(function (resolve, reject) {
+    dispatch(_callCheckRequested());
     request('/api/check', formData)
       .then(() => {
+        dispatch(_callCheckSucceeded());
         reject('check view is not required');
       })
       .catch(() => {
+        dispatch(_callCheckFailed());
         resolve('check view is required due to failed validation');
       });
-      // .catch((error) => {
-      //   console.error(error.stack);
-      // });
   });
 }
 
@@ -130,9 +151,6 @@ export function storeName(name) {
       .catch(error => {
         dispatch(_storeNameFailed(error));
       });
-      // .catch(error => {
-      //   console.error(error.stack);
-      // });
   }
 }
 
@@ -148,8 +166,5 @@ export function storePhone(phone) {
       .catch(error => {
         dispatch(_storePhoneFailed(error));
       });
-      // .catch(error => {
-      //   console.error(error.stack);
-      // });
   }
 }
