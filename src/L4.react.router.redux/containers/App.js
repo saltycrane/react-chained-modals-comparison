@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -40,6 +40,7 @@ export default class RoutedApp extends Component {
             <Route path="/" component={ChainedModals}>
               <Route path="/name" component={ModalName} />
               <Route path="/phone" component={ModalPhone} />
+              <IndexRedirect to="/name" />
             </Route>
             <Route path="/done" />
           </Route>

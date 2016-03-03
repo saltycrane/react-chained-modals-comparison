@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
 
 import ModalName from '../components/ModalName';
 import ModalPhone from '../components/ModalPhone';
@@ -34,6 +34,7 @@ export default class RoutedApp extends Component {
           <Route path="/" component={ModalSequenceA}>
             <Route path="/name" component={ModalName} />
             <Route path="/phone" component={ModalPhone} />
+            <IndexRedirect to="/name" />
           </Route>
           <Route path="/done" />
         </Route>

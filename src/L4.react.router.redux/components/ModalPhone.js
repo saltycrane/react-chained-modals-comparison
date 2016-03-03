@@ -15,9 +15,6 @@ export default class ModalPhone extends Component {
       hasError: false,
       errorMsg: null
     };
-
-    this._handleInputChange = this._handleInputChange.bind(this);
-    this._handleClickNext = this._handleClickNext.bind(this);
   }
 
   render() {
@@ -49,13 +46,13 @@ export default class ModalPhone extends Component {
     );
   }
 
-  _handleInputChange() {
+  _handleInputChange = () => {
     this.setState({
       phone: this._input.getValue()
     });
-  }
+  };
 
-  _handleClickNext() {
+  _handleClickNext = () => {
     const { storePhone, gotoNext } = this.props;
     const phone = this._input.getValue();
 
@@ -73,5 +70,5 @@ export default class ModalPhone extends Component {
           errorMsg: error
         });
       });
-  }
+  };
 }

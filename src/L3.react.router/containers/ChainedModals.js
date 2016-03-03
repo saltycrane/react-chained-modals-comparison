@@ -5,15 +5,6 @@ import ModalBackdrop from '../components/ModalBackdrop';
 
 
 export default class ChainedModals extends Component {
-  constructor(props) {
-    super(props);
-
-    this.modalList = props.modalList;
-
-    this._gotoNext = this._gotoNext.bind(this);
-    this._handleModalHide = this._handleModalHide.bind(this);
-  }
-
   render() {
     const { children } = this.props;
     const { currIndex } = this.state;
@@ -46,21 +37,22 @@ export default class ChainedModals extends Component {
   }
 
   _setIndexFromRoute(props) {
-    const { location: { pathname } } = props;
-    const index = this.modalList.findIndex(path => path === pathname);
+    const { modalList, location: { pathname } } = props;
+    const index = modalList.findIndex(path => path === pathname);
     this.setState({currIndex: index});
   }
 
-  _gotoNext() {
+  _gotoNext = () => {
+    const { modalList } = this.props;
     const { currIndex } = this.state;
     const nextIndex = currIndex + 1;
-    const nextRoute = this.modalList[nextIndex];
+    const nextRoute = modalList[nextIndex];
 
     this.setState({currIndex: nextIndex});
     hashHistory.push(nextRoute);
-  }
+  };
 
-  _handleModalHide() {
+  _handleModalHide = () => {
     hashHistory.push('/done');
-  }
+  };
 }

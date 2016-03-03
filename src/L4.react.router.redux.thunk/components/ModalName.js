@@ -10,9 +10,6 @@ export default class ModalName extends Component {
     this.state = {
       name: name || ''
     };
-
-    this._handleInputChange = this._handleInputChange.bind(this);
-    this._handleClickNext = this._handleClickNext.bind(this);
   }
 
   render() {
@@ -52,16 +49,16 @@ export default class ModalName extends Component {
     }
   }
 
-  _handleInputChange() {
+  _handleInputChange = () => {
     this.setState({
       name: this._input.getValue()
     });
-  }
+  };
 
-  _handleClickNext() {
+  _handleClickNext = () => {
     const { storeName } = this.props;
     const name = this._input.getValue();
 
     storeName(name);
-  }
+  };
 }

@@ -7,13 +7,6 @@ import ModalBackdrop from '../components/ModalBackdrop';
 
 
 class ChainedModals extends Component {
-  constructor(props) {
-    super(props);
-
-    this._gotoNext = this._gotoNext.bind(this);
-    this._handleModalHide = this._handleModalHide.bind(this);
-  }
-
   render() {
     const { children, currIndex, ...props } = this.props;
 
@@ -37,17 +30,17 @@ class ChainedModals extends Component {
     );
   }
 
-  _gotoNext() {
+  _gotoNext = () => {
     const { currIndex, modalList } = this.props;
     const nextIndex = currIndex + 1;
     const nextRoute = modalList[nextIndex];
 
     hashHistory.push(nextRoute);
-  }
+  };
 
-  _handleModalHide() {
+  _handleModalHide = () => {
     hashHistory.push('/done');
-  }
+  };
 }
 
 export default connect(

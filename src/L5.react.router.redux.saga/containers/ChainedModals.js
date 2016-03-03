@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
+  gotoNext,
   gotoDone,
   storeName,
   storePhone
@@ -40,6 +41,7 @@ export default connect(
   },
   function mapDispatchToProps(dispatch) {
     return {
+      gotoNext: (...args) => dispatch(gotoNext(...args)),
       gotoDone: (...args) => dispatch(gotoDone(...args)),
       storeName: (...args) => dispatch(storeName(...args)),
       storePhone: (...args) => dispatch(storePhone(...args))

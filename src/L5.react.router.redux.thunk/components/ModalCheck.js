@@ -1,41 +1,17 @@
 import React, { Component } from 'react';
-import { Modal, Button, Input } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 
 
-export default class ModalCheck extends Component {
-  constructor(props) {
-    super(props);
-
-    const { formData: { name } } = props;
-    this.state = {
-      name: name || ''
-    };
-
-    this._handleInputChange = this._handleInputChange.bind(this);
-    this._handleClickNext = this._handleClickNext.bind(this);
-  }
-
+export default class ModalDoubleCheck extends Component {
   render() {
-    const { step, requestStatus, errorMsg, ...props } = this.props;
-    const { name } = this.state;
+    const { step, ...props } = this.props;
 
     return (
       <Modal {...props}>
         <Modal.Header closeButton>
-          <Modal.Title>Step {step} - Check</Modal.Title>
+          <Modal.Title>Step {step} - Double Check</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {requestStatus === 'REQUESTING' && <p><em>Making fake ajax request...</em></p>}
-          {errorMsg && <p><em>{errorMsg}</em></p>}
-          <Input
-            label="Enter your name"
-            type="text"
-            bsSize="large"
-            {...(requestStatus === 'FAILED' ? {bsStyle: 'error'} : {})}
-            value={name}
-            onChange={this._handleInputChange}
-            ref={(c) => this._input = c}
-          />
         </Modal.Body>
         <Modal.Footer>
           <Button bsStyle="primary" onClick={this._handleClickNext}>Next</Button>
@@ -44,24 +20,15 @@ export default class ModalCheck extends Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { requestStatus, gotoNext } = nextProps;
-
-    if (requestStatus === 'SUCCEEDED') {
-      gotoNext();
-    }
-  }
-
-  _handleInputChange() {
+  _handleInputChange = () => {
     this.setState({
       name: this._input.getValue()
     });
-  }
+  };
 
-  _handleClickNext() {
-    const { storeName } = this.props;
-    const name = this._input.getValue();
+  _handleClickNext = () => {
+    const { gotoNext } = this.props;
 
-    storeName(name);
+    gotoNext();
   }
 }

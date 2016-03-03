@@ -5,20 +5,15 @@ import { request } from '../../request-simulator';
 
 
 export default class ModalPhone extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isRequesting: false,
-      hasError: false
-    };
-
-    this._handleClickNext = this._handleClickNext.bind(this);
-  }
+  state = {
+    isRequesting: false,
+    hasError: false,
+    errorMsg: null
+  };
 
   render() {
     const { step, ...props } = this.props;
-    const { isRequesting, hasError } = this.state;
+    const { isRequesting, hasError, errorMsg } = this.state;
 
     return (
       <Modal {...props}>
@@ -27,6 +22,7 @@ export default class ModalPhone extends Component {
         </Modal.Header>
         <Modal.Body>
           {isRequesting && <p><em>Making fake ajax request...</em></p>}
+          {errorMsg && <p><em>{errorMsg}</em></p>}
           <Input
             label="Enter your phone number"
             type="text"
@@ -42,13 +38,13 @@ export default class ModalPhone extends Component {
     );
   }
 
-  _handleClickNext() {
+  _handleClickNext = () => {
     const { gotoNext } = this.props;
     const phone = this._input.getValue();
 
-    this.setState({isRequesting: true});
+    this.setState({isRequesting: true, errorMsg: null});
 
-    request('/my/api/url', phone)
+    request('/api/phone', phone)
       .then(() => {
         gotoNext();
       })
@@ -58,5 +54,5 @@ export default class ModalPhone extends Component {
           hasError: true
         });
       });
-  }
+  };
 }

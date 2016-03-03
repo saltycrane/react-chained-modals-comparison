@@ -20,10 +20,8 @@ export function request(url, value) {
           const isValid = phone && phone.replace(/\D/g, '').length === 10
 
           if (isValid) {
-            console.log('check ok');
             resolve();
           } else {
-            console.log('check failed');
             reject('Check failed.');
           }
           break;

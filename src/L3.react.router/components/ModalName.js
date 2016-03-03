@@ -5,20 +5,15 @@ import { request } from '../../request-simulator';
 
 
 export default class ModalName extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isRequesting: false,
-      hasError: false
-    };
-
-    this._handleClickNext = this._handleClickNext.bind(this);
-  }
+  state = {
+    isRequesting: false,
+    hasError: false,
+    errorMsg: null
+  };
 
   render() {
     const { step, ...props } = this.props;
-    const { isRequesting, hasError } = this.state;
+    const { isRequesting, hasError, errorMsg } = this.state;
 
     return (
       <Modal {...props}>
@@ -27,6 +22,7 @@ export default class ModalName extends Component {
         </Modal.Header>
         <Modal.Body>
           {isRequesting && <p><em>Making fake ajax request...</em></p>}
+          {errorMsg && <p><em>{errorMsg}</em></p>}
           <Input
             label="Enter your name"
             type="text"
@@ -42,21 +38,22 @@ export default class ModalName extends Component {
     );
   }
 
-  _handleClickNext() {
+  _handleClickNext = () => {
     const { gotoNext } = this.props;
     const name = this._input.getValue();
 
-    this.setState({isRequesting: true});
+    this.setState({isRequesting: true, errorMsg: null});
 
-    request('/my/api/url', name)
+    request('/api/name', name)
       .then(() => {
         gotoNext();
       })
-      .catch(() => {
+      .catch((error) => {
         this.setState({
           isRequesting: false,
-          hasError: true
+          hasError: true,
+          errorMsg: error
         });
       });
-  }
+  };
 }

@@ -7,11 +7,15 @@ requirements of the previous level.
 
 Approaches compared:
 
- - React only
- - React + React Router
- - React + React Router + Redux
- - React + React Router + Redux + Redux Thunk
- - React + React Router + Redux + Redux Saga
+ - [React](https://facebook.github.io/react/) only
+ - React + [React Router](https://github.com/reactjs/react-router)
+ - React + React Router + [Redux](https://github.com/reactjs/redux)
+ - React + React Router + Redux + [Redux Thunk](https://github.com/gaearon/redux-thunk)
+ - React + React Router + Redux + [Redux Saga](https://github.com/yelouafi/redux-saga)
+
+Interesting, but not covered:
+
+ - [Redux Loop](https://github.com/raisemarketplace/redux-loop)
  
 ## Demo
 
@@ -19,6 +23,7 @@ http://saltycrane.github.io/react-chained-modals-comparison
  
 ## Usage
 
+    $ npm install
     $ npm start
     $ # goto http://localhost:3000/#/name in the browser
 
@@ -68,6 +73,7 @@ http://saltycrane.github.io/react-chained-modals-comparison
 #### [React + React Router + Redux + Redux Thunk](/src/L4.react.router.redux.thunk)
 
  - Move ajax calls and naviation from components to actions using redux-thunk.
+ - Used `componentWillReceiveProps` to call `gotoNext` but could call it from `storeX`
 
 ### L5 - complexity level 5
 

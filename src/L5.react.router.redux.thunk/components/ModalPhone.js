@@ -10,9 +10,6 @@ export default class ModalPhone extends Component {
     this.state = {
       phone: phone || ''
     };
-
-    this._handleInputChange = this._handleInputChange.bind(this);
-    this._handleClickNext = this._handleClickNext.bind(this);
   }
 
   render() {
@@ -45,16 +42,16 @@ export default class ModalPhone extends Component {
     );
   }
 
-  _handleInputChange() {
+  _handleInputChange = () => {
     this.setState({
       phone: this._input.getValue()
     });
-  }
+  };
 
-  _handleClickNext() {
+  _handleClickNext = () => {
     const { storePhone } = this.props;
     const phone = this._input.getValue();
 
     storePhone(phone);
-  }
+  };
 }

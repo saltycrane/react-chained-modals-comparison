@@ -4,23 +4,15 @@ import ModalBackdrop from '../components/ModalBackdrop';
 
 
 export default class ChainedModals extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currIndex: 0,
-      showModal: true
-    };
-
-    this.modalList = props.modalList;
-
-    this._handleClickNext = this._handleClickNext.bind(this);
-    this._handleModalHide = this._handleModalHide.bind(this);
-  }
+  state = {
+    currIndex: 0,
+    showModal: true
+  };
 
   render() {
+    const { modalList } = this.props;
     const { currIndex, showModal } = this.state;
-    const ModalComponent = this.modalList[currIndex];
+    const ModalComponent = modalList[currIndex];
 
     return (
       <div>
@@ -36,17 +28,18 @@ export default class ChainedModals extends Component {
     );
   }
 
-  _handleClickNext() {
+  _handleClickNext = () => {
+    const { modalList } = this.props;
     const { currIndex } = this.state;
 
-    if (currIndex < this.modalList.length - 1) {
+    if (currIndex < modalList.length - 1) {
       this.setState({currIndex: currIndex + 1});
     } else {
       this.setState({showModal: false});
     }
-  }
+  };
 
-  _handleModalHide() {
+  _handleModalHide = () => {
     this.setState({showModal: false});
-  }
+  };
 }
