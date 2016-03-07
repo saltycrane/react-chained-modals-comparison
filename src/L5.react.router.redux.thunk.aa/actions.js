@@ -95,43 +95,36 @@ export function gotoNext() {
 }
 
 export function _gotoIndex(index) {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
     const { modalList } = getState();
     const nextRoute = modalList[index];
-    const shouldShow = SHOULD_SHOW_MAP[nextRoute];
+    const shouldShowFn = SHOULD_SHOW_MAP[nextRoute];
+    const shouldShow = await shouldShowFn(dispatch, getState);
 
-    shouldShow(dispatch, getState)
-      .then(() => {
-        hashHistory.push(nextRoute);
-      })
-      .catch(() => {
-        dispatch(_gotoIndex(index + 1));
-      });
+    if (shouldShow) {
+      hashHistory.push(nextRoute);
+    } else {
+      dispatch(_gotoIndex(index + 1));
+    }
   }
 }
 
 function alwaysShow() {
-  return Promise.resolve();
+  return true;
 }
 
-function shouldShowCheck(dispatch, getState) {
+async function shouldShowCheck(dispatch, getState) {
   const { formData } = getState();
 
-  // create a new promise here to invert the resolve/reject
-  // i.e. a resolve from the API causes a reject here and vice versa
-  // is there a better way to do this?
-  return new Promise(function (resolve, reject) {
-    dispatch(_callCheckRequested());
-    request('/api/check', formData)
-      .then(() => {
-        dispatch(_callCheckSucceeded());
-        reject('check view is not required');
-      })
-      .catch(() => {
-        dispatch(_callCheckFailed());
-        resolve('check view is required due to failed validation');
-      });
-  });
+  dispatch(_callCheckRequested());
+  try {
+    await request('/api/check', formData);
+    dispatch(_callCheckSucceeded());
+    return false;
+  } catch (e) {
+    dispatch(_callCheckFailed());
+    return true;
+  }
 }
 
 export function gotoDone() {
@@ -141,30 +134,27 @@ export function gotoDone() {
 }
 
 export function storeName(name) {
-  return dispatch => {
+  return async dispatch => {
     dispatch(_storeNameRequested());
-    return request('/api/name', name)
-      .then(() => {
-        dispatch(_storeNameSucceeded(name));
-        dispatch(gotoNext());
-      })
-      .catch(error => {
-        dispatch(_storeNameFailed(error));
-      });
+    try {
+      await request('/api/name', name);
+      dispatch(_storeNameSucceeded(name));
+      dispatch(gotoNext());
+    } catch(error) {
+      dispatch(_storeNameFailed(error));
+    }
   }
 }
 
 export function storePhone(phone) {
-  return dispatch => {
-
+  return async dispatch => {
     dispatch(_storePhoneRequested());
-    return request('/api/phone', phone)
-      .then(() => {
-        dispatch(_storePhoneSucceeded(phone));
-        dispatch(gotoNext());
-      })
-      .catch(error => {
-        dispatch(_storePhoneFailed(error));
-      });
+    try {
+      await request('/api/phone', phone);
+      dispatch(_storePhoneSucceeded(phone));
+      dispatch(gotoNext());
+    } catch(error) {
+      dispatch(_storePhoneFailed(error));
+    }
   }
 }

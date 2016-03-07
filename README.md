@@ -12,6 +12,7 @@ Approaches compared:
  - React + React Router + [Redux](https://github.com/reactjs/redux)
  - React + React Router + Redux + [Redux Thunk](https://github.com/gaearon/redux-thunk)
  - React + React Router + Redux + [Redux Saga](https://github.com/yelouafi/redux-saga)
+ - React + React Router + Redux + Redux Thunk + Async/Await (ES2017)
 
 Interesting, but not covered:
 
@@ -89,7 +90,18 @@ http://saltycrane.github.io/react-chained-modals-comparison
  - Probably there is still not enough complexity for Redux Saga to really shine,
    but it looks a little better to me.
 
+#### [React + React Router + Redux + Redux Thunk + Async/Await](/src/L5.react.router.redux.thunk.aa)
+
+ - async/await syntax is nicer than generator syntax used with redux-saga
+ - redux-saga is more testable and can handle more complex workflows
+ - requires ES2017 (stage 3)
+
 ## See also
 
  - http://stackoverflow.com/a/35641680/101911
  - https://medium.com/@MattiaManzati/tips-to-handle-authentication-in-redux-2-introducing-redux-saga-130d6872fbe7
+ - http://stackoverflow.com/questions/34930735/pros-cons-of-using-redux-saga-with-es6-generators-vs-redux-thunk-with-es7-async/34933395#34933395
+
+todo:
+ - pass route and data object to a `clickNext` action
+   then keep the store part separate from the advancing part

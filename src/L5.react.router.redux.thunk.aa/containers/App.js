@@ -1,10 +1,9 @@
-import 'babel-polyfill';  // for redux-saga generators
+import 'babel-polyfill';  // for async+await
 
 import React, { Component } from 'react';
 import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 
 import ModalName from '../components/ModalName';
@@ -13,12 +12,10 @@ import ModalCheck from '../components/ModalCheck';
 import PageBehindModals from '../components/PageBehindModals';
 import { routeChanged } from '../actions';
 import reducer from '../reducers';
-import saga from '../sagas';
 import ChainedModals from './ChainedModals';
 
 
-const sagaMiddleware = createSagaMiddleware(saga);
-const store = createStore(reducer, applyMiddleware(sagaMiddleware, thunk));
+const store = createStore(reducer, applyMiddleware(thunk));
 
 // Dispatch an action when the route changes.
 // from https://github.com/reactjs/react-router-redux/issues/257
