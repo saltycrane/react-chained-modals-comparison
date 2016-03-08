@@ -10,11 +10,11 @@ import ReactDOM from 'react-dom';
 // import App from './L4.react.router.redux/containers/App';
 // import App from './L4.react.router.redux.thunk/containers/App';
 // import App from './L5.react.router.redux.thunk/containers/App';
-import App from './L5.react.router.redux.saga/containers/App';
-// import App from './L5.react.router.redux.thunk.aa/containers/App';
+// import App from './L5.react.router.redux.saga/containers/App';
+import App from './L5.react.router.redux.thunk.aa/containers/App';
 
 
 ReactDOM.render(
   <App />,
-  root
+  document.getElementById('root')
 );

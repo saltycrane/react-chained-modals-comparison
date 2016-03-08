@@ -12,15 +12,8 @@ var APP_PATH = path.resolve(ROOT_PATH, 'src');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'dist');
 
 var common = {
-  entry: [
-    APP_PATH
-  ],
   resolve: {
     extensions: ['', '.js', '.jsx']
-  },
-  output: {
-    path: BUILD_PATH,
-    filename: 'bundle.js'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -40,24 +33,20 @@ var common = {
 if (TARGET === 'start' || !TARGET) {
   module.exports = merge(common, {
     devtool: 'eval-source-map',
-    devServer: {
-      historyApiFallback: true,
-      hot: true,
-      inline: true,
-      progress: true,
-      port: 3000
-    },
-    // to specify options (in particular the editor) for redbox-react for react-transform-catch-errors for babel-plugin-react-transform
-    resolve: {
-      alias: {
-        reporterOptions: path.join(__dirname, 'reporterOptions.js')
-      }
+    entry: [
+      'webpack-hot-middleware/client',
+      APP_PATH
+    ],
+    output: {
+      path: BUILD_PATH,
+      filename: 'bundle.js'
     },
     plugins: [
       new webpack.DefinePlugin({
         __DEV__: true
       }),
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
     ],
     module: {
       loaders: [
