@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
@@ -18,34 +18,30 @@ const store = createStore(reducer);
 // TODO: where should this line go?
 hashHistory.listen(location => store.dispatch(routeChanged(location)));
 
-class App extends Component {
-  render() {
-    const { children } = this.props;
+const RoutedApp = () => (
+  <Provider store={store}>
+    <Router history={hashHistory}>
+      <Route component={App}>
+        <Route path="/" component={ChainedModals}>
+          <Route path="/name" component={ModalName} />
+          <Route path="/phone" component={ModalPhone} />
+          <IndexRedirect to="/name" />
+        </Route>
+        <Route path="/done" />
+      </Route>
+    </Router>
+  </Provider>
+);
 
-    return (
-      <div>
-        <PageBehindModals />
-        {children}
-      </div>
-    );
-  }
-}
+const App = (props) => {
+  const { children } = props;
 
-export default class RoutedApp extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router history={hashHistory}>
-          <Route component={App}>
-            <Route path="/" component={ChainedModals}>
-              <Route path="/name" component={ModalName} />
-              <Route path="/phone" component={ModalPhone} />
-              <IndexRedirect to="/name" />
-            </Route>
-            <Route path="/done" />
-          </Route>
-        </Router>
-      </Provider>
-    );
-  }
-}
+  return (
+    <div>
+      <PageBehindModals />
+      {children}
+    </div>
+  );
+};
+
+export default RoutedApp;

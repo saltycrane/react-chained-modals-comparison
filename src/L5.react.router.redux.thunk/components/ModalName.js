@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Button, Input } from 'react-bootstrap';
 
 
-export default class ModalName extends Component {
+class ModalName extends Component {
   constructor(props) {
     super(props);
 
@@ -55,3 +55,5 @@ export default class ModalName extends Component {
     storeName(name);
   };
 }
+
+export default ModalName;

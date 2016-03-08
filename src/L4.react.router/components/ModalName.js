@@ -4,7 +4,7 @@ import { Modal, Button, Input } from 'react-bootstrap';
 import { request } from '../../request-simulator';
 
 
-export default class ModalName extends Component {
+class ModalName extends Component {
   constructor(props) {
     super(props);
 
@@ -72,3 +72,5 @@ export default class ModalName extends Component {
       });
   };
 }
+
+export default ModalName;

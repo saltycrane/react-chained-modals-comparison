@@ -4,7 +4,7 @@ import { hashHistory } from 'react-router';
 import ModalBackdrop from '../components/ModalBackdrop';
 
 
-export default class ChainedModals extends Component {
+class ChainedModals extends Component {
   render() {
     const { children } = this.props;
     const { currIndex } = this.state;
@@ -48,7 +48,6 @@ export default class ChainedModals extends Component {
     const nextIndex = currIndex + 1;
     const nextRoute = modalList[nextIndex];
 
-    this.setState({currIndex: nextIndex});
     hashHistory.push(nextRoute);
   };
 
@@ -56,3 +55,5 @@ export default class ChainedModals extends Component {
     hashHistory.push('/done');
   };
 }
+
+export default ChainedModals;

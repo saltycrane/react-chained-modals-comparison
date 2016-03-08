@@ -20,6 +20,22 @@ const store = createStore(reducer, applyMiddleware(thunk));
 // TODO: where should this line go?
 hashHistory.listen(location => store.dispatch(routeChanged(location)));
 
+const RoutedApp = () => (
+  <Provider store={store}>
+    <Router history={hashHistory}>
+      <Route component={App}>
+        <Route path="/" component={ChainedModals}>
+          <Route path="/name" component={ModalName} />
+          <Route path="/phone" component={ModalPhone} />
+          <Route path="/check" component={ModalCheck} />
+          <IndexRedirect to="/name" />
+        </Route>
+        <Route path="/done" />
+      </Route>
+    </Router>
+  </Provider>
+);
+
 class App extends Component {
   render() {
     const { children } = this.props;
@@ -33,22 +49,4 @@ class App extends Component {
   }
 }
 
-export default class RoutedApp extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router history={hashHistory}>
-          <Route component={App}>
-            <Route path="/" component={ChainedModals}>
-              <Route path="/name" component={ModalName} />
-              <Route path="/phone" component={ModalPhone} />
-              <Route path="/check" component={ModalCheck} />
-              <IndexRedirect to="/name" />
-            </Route>
-            <Route path="/done" />
-          </Route>
-        </Router>
-      </Provider>
-    );
-  }
-}
+export default RoutedApp;

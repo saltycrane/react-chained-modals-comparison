@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
 
 import ModalName from '../components/ModalName';
@@ -7,35 +7,31 @@ import PageBehindModals from '../components/PageBehindModals';
 import ChainedModals from './ChainedModals';
 
 
-class App extends Component {
-  render() {
-    const { children } = this.props;
+const RoutedApp = () => (
+  <Router history={hashHistory}>
+    <Route component={App}>
+      <Route path="/" component={
+        partial(ChainedModals, {modalList: ['/name', '/phone', '/done']})}>
+        <Route path="/name" component={ModalName} />
+        <Route path="/phone" component={ModalPhone} />
+        <IndexRedirect to="/name" />
+      </Route>
+      <Route path="/done" />
+    </Route>
+  </Router>
+);
 
-    return (
-      <div>
-        <PageBehindModals />
-        {children}
-      </div>
-    );
-  }
-}
+const App = (props) => {
+  const { children } = props;
 
-const ModalSequenceA = (props) => (
-  <ChainedModals modalList={['/name', '/phone', '/done']} {...props} />);
+  return (
+    <div>
+      <PageBehindModals />
+      {children}
+    </div>
+  );
+};
 
-export default class RoutedApp extends Component {
-  render() {
-    return (
-      <Router history={hashHistory}>
-        <Route component={App}>
-          <Route path="/" component={ModalSequenceA}>
-            <Route path="/name" component={ModalName} />
-            <Route path="/phone" component={ModalPhone} />
-            <IndexRedirect to="/name" />
-          </Route>
-          <Route path="/done" />
-        </Route>
-      </Router>
-    );
-  }
-}
+const partial = (Comp, props) => (fprops) => <Comp {...props} {...fprops} />;
+
+export default RoutedApp;

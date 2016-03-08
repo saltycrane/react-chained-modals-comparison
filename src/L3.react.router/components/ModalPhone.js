@@ -4,7 +4,7 @@ import { Modal, Button, Input } from 'react-bootstrap';
 import { request } from '../../request-simulator';
 
 
-export default class ModalPhone extends Component {
+class ModalPhone extends Component {
   state = {
     isRequesting: false,
     hasError: false,
@@ -56,3 +56,5 @@ export default class ModalPhone extends Component {
       });
   };
 }
+
+export default ModalPhone;

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import ModalBackdrop from '../components/ModalBackdrop';
 
 
-export default class ChainedModals extends Component {
+class ChainedModals extends Component {
   state = {
     currIndex: 0,
     showModal: true
@@ -43,3 +43,5 @@ export default class ChainedModals extends Component {
     this.setState({showModal: false});
   };
 }
+
+export default ChainedModals;

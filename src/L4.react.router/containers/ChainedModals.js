@@ -4,7 +4,7 @@ import { hashHistory } from 'react-router';
 import ModalBackdrop from '../components/ModalBackdrop';
 
 
-export default class ChainedModals extends Component {
+class ChainedModals extends Component {
   constructor(props) {
     super(props);
 
@@ -91,3 +91,5 @@ export default class ChainedModals extends Component {
     });
   };
 }
+
+export default ChainedModals;

@@ -1,6 +1,6 @@
 import React from 'react';
 
 
-export default function ModalBackdrop() {
-  return <div className="modal-backdrop in"></div>;
-}
+const ModalBackdrop = () => <div className="modal-backdrop in"></div>;
+
+export default ModalBackdrop;

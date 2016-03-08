@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -10,29 +10,27 @@ import {
 import ModalBackdrop from '../components/ModalBackdrop';
 
 
-class ChainedModals extends Component {
-  render() {
-    const { children, currIndex, gotoDone, ...props } = this.props;
+const ChainedModals = (props) => {
+  const { children, currIndex, gotoDone, ...rest } = props;
 
-    // Clone the child view element so we can pass props to it.
-    // Taken from this react-router example:
-    // https://github.com/reactjs/react-router/blob/v2.0.0/examples/passing-props-to-children/app.js
-    const modalElement = children && React.cloneElement(children, {
-      step: currIndex + 1,
-      backdrop: false,
-      show: true,
-      onHide: gotoDone,
-      ...props
-    });
+  // Clone the child view element so we can pass props to it.
+  // Taken from this react-router example:
+  // https://github.com/reactjs/react-router/blob/v2.0.0/examples/passing-props-to-children/app.js
+  const modalElement = children && React.cloneElement(children, {
+    step: currIndex + 1,
+    backdrop: false,
+    show: true,
+    onHide: gotoDone,
+    ...rest
+  });
 
-    return (
-      <div>
-        <ModalBackdrop />
-        {modalElement}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <ModalBackdrop />
+      {modalElement}
+    </div>
+  );
+};
 
 export default connect(
   function mapStateToProps(state) {
