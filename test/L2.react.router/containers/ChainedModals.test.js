@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import ChainedModals from './ChainedModals';
+import ChainedModals from '../../../src/L2.react.router/containers/ChainedModals';
 
 
 describe('ChainedModals', () => {

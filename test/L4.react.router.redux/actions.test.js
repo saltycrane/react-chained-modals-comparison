@@ -1,7 +1,7 @@
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
-import * as actions from './actions';
+import * as actions from '../../src/L4.react.router.redux/actions.js';
 
 
 // TODO: figure out why adding this test makes all the other tests not run

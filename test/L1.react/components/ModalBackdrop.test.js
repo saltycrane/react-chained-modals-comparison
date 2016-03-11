@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import ModalBackdrop from './ModalBackdrop';
+import ModalBackdrop from '../../../src/L1.react/components/ModalBackdrop';
 
 
 describe('ModalBackdrop', () => {

@@ -4,9 +4,9 @@
   "main": "server.js",
   "scripts": {
     "test": "npm run test:coverage",
-    "test:nocov": "NODE_ENV=test mocha --compilers js:babel-core/register src",
+    "test:nocov": "NODE_ENV=test mocha --compilers js:babel-core/register --recursive",
     "test:watch": "npm run test:nocov -- --watch",
-    "test:coverage": "NODE_ENV=test babel-istanbul cover _mocha -- src/**/*.test.js",
+    "test:coverage": "NODE_ENV=test babel-istanbul cover _mocha",
     "start": "node devServer.js",
     "build": "NODE_ENV=production webpack"
   },

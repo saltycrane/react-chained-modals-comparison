@@ -2,13 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import App from './App';
+import RoutedApp from '../../../src/L2.react.router/containers/App';
 
 
-describe('App', () => {
+describe('RoutedApp', () => {
   it('renders without error', () => {
     const wrapper = shallow(
-      <App />
+      <RoutedApp />
     );
     expect(wrapper).to.be.ok;
   });

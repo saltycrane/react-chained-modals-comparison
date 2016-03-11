@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import ModalName from './ModalName';
+import ModalName from '../../../src/L1.react/components/ModalName';
 
 
 describe('ModalName', () => {

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 
-import ModalPhone from './ModalPhone';
+import ModalPhone from '../../../src/L2.react.router/components/ModalPhone';
 
 
 describe('ModalPhone', () => {

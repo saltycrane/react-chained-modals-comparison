@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
-import ModalName from '../components/ModalName';
-import ModalPhone from '../components/ModalPhone';
-import ChainedModals from './ChainedModals';
+import ModalName from '../../../src/L1.react/components/ModalName';
+import ModalPhone from '../../../src/L1.react/components/ModalPhone';
+import ChainedModals from '../../../src/L1.react/containers/ChainedModals';
 
 
 describe('ChainedModals', () => {

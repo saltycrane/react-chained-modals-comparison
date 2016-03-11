@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>ChainedModals.js</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #f5f5f5;
+      }
+      .rainbow-delimiters-depth-1 {
+        /* rainbow-delimiters-depth-1-face */
+        color: #707183;
+      }
+      .rainbow-delimiters-depth-2 {
+        /* rainbow-delimiters-depth-2-face */
+        color: #7388d6;
+      }
+      .rainbow-delimiters-depth-3 {
+        /* rainbow-delimiters-depth-3-face */
+        color: #909183;
+      }
+      .rainbow-delimiters-depth-4 {
+        /* rainbow-delimiters-depth-4-face */
+        color: #709870;
+      }
+      .rainbow-delimiters-depth-5 {
+        /* rainbow-delimiters-depth-5-face */
+        color: #907373;
+      }
+      .web-mode-constant {
+        /* web-mode-constant-face */
+        color: #6e8b3d;
+      }
+      .web-mode-function-call {
+        /* web-mode-function-call-face */
+        color: #cd9b1d;
+      }
+      .web-mode-function-name {
+        /* web-mode-function-name-face */
+        color: #cd9b1d;
+      }
+      .web-mode-html-attr-equal {
+        /* web-mode-html-attr-equal-face */
+        color: #8b8989;
+      }
+      .web-mode-html-attr-name {
+        /* web-mode-html-attr-name-face */
+        color: #8b8989;
+      }
+      .web-mode-html-tag {
+        /* web-mode-html-tag-face */
+        color: #8b8989;
+      }
+      .web-mode-html-tag-bracket {
+        /* web-mode-html-tag-bracket-face */
+        color: #242424;
+      }
+      .web-mode-javascript-string {
+        /* web-mode-javascript-string-face */
+        color: #8b7355;
+      }
+      .web-mode-keyword {
+        /* web-mode-keyword-face */
+        color: #1c86ee;
+      }
+      .web-mode-type {
+        /* web-mode-type-face */
+        color: #00688b;
+      }
+      .web-mode-variable-name {
+        /* web-mode-variable-name-face */
+        color: #2e8b57;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="web-mode-keyword">import</span> React, <span class="rainbow-delimiters-depth-1">{</span> Component <span class="rainbow-delimiters-depth-1">}</span> <span class="web-mode-keyword">from</span> <span class="web-mode-javascript-string">'react'</span>;
+
+<span class="web-mode-keyword">import</span> ModalBackdrop <span class="web-mode-keyword">from</span> <span class="web-mode-javascript-string">'../components/ModalBackdrop'</span>;
+
+
+<span class="web-mode-keyword">class</span> <span class="web-mode-type">ChainedModals</span> <span class="web-mode-keyword">extends</span> <span class="web-mode-type">Component</span> <span class="rainbow-delimiters-depth-1">{</span>
+  state = <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-variable-name">currIndex</span>: 0,
+    <span class="web-mode-variable-name">showModal</span>: <span class="web-mode-constant">true</span>
+  <span class="rainbow-delimiters-depth-2">}</span>;
+
+  <span class="web-mode-function-call">render</span><span class="rainbow-delimiters-depth-2">()</span> <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-3">{</span> modalList <span class="rainbow-delimiters-depth-3">}</span> = <span class="web-mode-constant">this</span>.props;
+    <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-3">{</span> currIndex, showModal <span class="rainbow-delimiters-depth-3">}</span> = <span class="web-mode-constant">this</span>.state;
+    <span class="web-mode-keyword">const</span> <span class="web-mode-variable-name">ModalComponent</span> = modalList<span class="rainbow-delimiters-depth-3">[</span>currIndex<span class="rainbow-delimiters-depth-3">]</span>;
+
+    <span class="web-mode-keyword">return</span> <span class="rainbow-delimiters-depth-3">(</span>
+      <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">div</span><span class="web-mode-html-tag-bracket">&gt;</span>
+        <span class="rainbow-delimiters-depth-4">{</span>showModal &amp;&amp; <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">ModalBackdrop</span> <span class="web-mode-html-tag-bracket">/&gt;</span><span class="rainbow-delimiters-depth-4">}</span>
+        <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">ModalComponent</span>
+          <span class="web-mode-html-attr-name">step</span><span class="web-mode-html-attr-equal">=</span><span class="rainbow-delimiters-depth-4">{</span>currIndex + 1<span class="rainbow-delimiters-depth-4">}</span>
+          <span class="web-mode-html-attr-name">onClickNext</span><span class="web-mode-html-attr-equal">=</span><span class="rainbow-delimiters-depth-4">{</span><span class="web-mode-constant">this</span>._handleClickNext<span class="rainbow-delimiters-depth-4">}</span>
+          <span class="web-mode-html-attr-name">backdrop</span><span class="web-mode-html-attr-equal">=</span><span class="rainbow-delimiters-depth-4">{</span><span class="web-mode-constant">false</span><span class="rainbow-delimiters-depth-4">}</span>
+          <span class="web-mode-html-attr-name">show</span><span class="web-mode-html-attr-equal">=</span><span class="rainbow-delimiters-depth-4">{</span>showModal<span class="rainbow-delimiters-depth-4">}</span>
+          <span class="web-mode-html-attr-name">onHide</span><span class="web-mode-html-attr-equal">=</span><span class="rainbow-delimiters-depth-4">{</span><span class="web-mode-constant">this</span>._handleModalHide<span class="rainbow-delimiters-depth-4">}</span>
+        <span class="web-mode-html-tag-bracket">/&gt;</span>
+      <span class="web-mode-html-tag-bracket">&lt;/</span><span class="web-mode-html-tag">div</span><span class="web-mode-html-tag-bracket">&gt;</span>
+    <span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span>
+
+  <span class="web-mode-function-name">_handleClickNext</span> = <span class="rainbow-delimiters-depth-2">()</span> =&gt; <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-3">{</span> modalList <span class="rainbow-delimiters-depth-3">}</span> = <span class="web-mode-constant">this</span>.props;
+    <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-3">{</span> currIndex <span class="rainbow-delimiters-depth-3">}</span> = <span class="web-mode-constant">this</span>.state;
+
+    <span class="web-mode-keyword">if</span> <span class="rainbow-delimiters-depth-3">(</span>currIndex &lt; modalList.length - 1<span class="rainbow-delimiters-depth-3">)</span> <span class="rainbow-delimiters-depth-3">{</span>
+      <span class="web-mode-constant">this</span>.<span class="web-mode-function-call">setState</span><span class="rainbow-delimiters-depth-4">(</span><span class="rainbow-delimiters-depth-5">{</span><span class="web-mode-variable-name">currIndex</span>: currIndex + 1<span class="rainbow-delimiters-depth-5">}</span><span class="rainbow-delimiters-depth-4">)</span>;
+    <span class="rainbow-delimiters-depth-3">}</span> <span class="web-mode-keyword">else</span> <span class="rainbow-delimiters-depth-3">{</span>
+      <span class="web-mode-constant">this</span>.<span class="web-mode-function-call">setState</span><span class="rainbow-delimiters-depth-4">(</span><span class="rainbow-delimiters-depth-5">{</span><span class="web-mode-variable-name">showModal</span>: <span class="web-mode-constant">false</span><span class="rainbow-delimiters-depth-5">}</span><span class="rainbow-delimiters-depth-4">)</span>;
+    <span class="rainbow-delimiters-depth-3">}</span>
+  <span class="rainbow-delimiters-depth-2">}</span>;
+
+  <span class="web-mode-function-name">_handleModalHide</span> = <span class="rainbow-delimiters-depth-2">()</span> =&gt; <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-constant">this</span>.<span class="web-mode-function-call">setState</span><span class="rainbow-delimiters-depth-3">(</span><span class="rainbow-delimiters-depth-4">{</span><span class="web-mode-variable-name">showModal</span>: <span class="web-mode-constant">false</span><span class="rainbow-delimiters-depth-4">}</span><span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span>;
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">export</span> <span class="web-mode-keyword">default</span> ChainedModals;
+</pre>
+  </body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>sagas.js</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #f5f5f5;
+      }
+      .ATTRLIST {
+        /* (:weight ultra-bold :foreground "Springgreen3") */
+        color: #00cd66;
+      }
+      .rainbow-delimiters-depth-1 {
+        /* rainbow-delimiters-depth-1-face */
+        color: #707183;
+      }
+      .rainbow-delimiters-depth-2 {
+        /* rainbow-delimiters-depth-2-face */
+        color: #7388d6;
+      }
+      .rainbow-delimiters-depth-3 {
+        /* rainbow-delimiters-depth-3-face */
+        color: #909183;
+      }
+      .rainbow-delimiters-depth-4 {
+        /* rainbow-delimiters-depth-4-face */
+        color: #709870;
+      }
+      .web-mode-constant {
+        /* web-mode-constant-face */
+        color: #6e8b3d;
+      }
+      .web-mode-function-call {
+        /* web-mode-function-call-face */
+        color: #cd9b1d;
+      }
+      .web-mode-javascript-string {
+        /* web-mode-javascript-string-face */
+        color: #8b7355;
+      }
+      .web-mode-keyword {
+        /* web-mode-keyword-face */
+        color: #1c86ee;
+      }
+      .web-mode-variable-name {
+        /* web-mode-variable-name-face */
+        color: #2e8b57;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="web-mode-keyword">import</span> <span class="rainbow-delimiters-depth-1">{</span> hashHistory <span class="rainbow-delimiters-depth-1">}</span> <span class="web-mode-keyword">from</span> <span class="web-mode-javascript-string">'react-router'</span>;
+<span class="web-mode-keyword">import</span> <span class="rainbow-delimiters-depth-1">{</span> takeEvery <span class="rainbow-delimiters-depth-1">}</span> <span class="web-mode-keyword">from</span> <span class="web-mode-javascript-string">'redux-saga'</span>;
+<span class="web-mode-keyword">import</span> <span class="rainbow-delimiters-depth-1">{</span> call, put, fork, select <span class="rainbow-delimiters-depth-1">}</span> <span class="web-mode-keyword">from</span> <span class="web-mode-javascript-string">'redux-saga/effects'</span>;
+
+<span class="web-mode-keyword">import</span> <span class="rainbow-delimiters-depth-1">{</span> request <span class="rainbow-delimiters-depth-1">}</span> <span class="web-mode-keyword">from</span> <span class="web-mode-javascript-string">'../request-simulator'</span>;
+<span class="web-mode-keyword">import</span> * as actions <span class="web-mode-keyword">from</span> <span class="web-mode-javascript-string">'./actions'</span>;
+
+
+<span class="web-mode-keyword">const</span> <span class="web-mode-variable-name">SHOULD_SHOW_MAP</span> = <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-javascript-string">'/name'</span>: alwaysShow,
+  <span class="web-mode-javascript-string">'/phone'</span>: alwaysShow,
+  <span class="web-mode-javascript-string">'/check'</span>: shouldShowCheck,
+  <span class="web-mode-javascript-string">'/done'</span>: alwaysShow
+<span class="rainbow-delimiters-depth-1">}</span>;
+
+<span class="web-mode-keyword">function</span> *gotoNext<span class="rainbow-delimiters-depth-1">()</span> <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-2">{</span> currIndex <span class="rainbow-delimiters-depth-2">}</span> = <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">select</span><span class="rainbow-delimiters-depth-2">()</span>;
+
+  <span class="web-mode-keyword">yield</span> *gotoIndex<span class="rainbow-delimiters-depth-2">(</span>currIndex + 1<span class="rainbow-delimiters-depth-2">)</span>;
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">function</span> *gotoIndex<span class="rainbow-delimiters-depth-1">(</span>nextIndex<span class="rainbow-delimiters-depth-1">)</span> <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-keyword">const</span> <span class="web-mode-variable-name">state</span> = <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">select</span><span class="rainbow-delimiters-depth-2">()</span>;
+  <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-2">{</span> modalList <span class="rainbow-delimiters-depth-2">}</span> = state;
+  <span class="web-mode-keyword">const</span> <span class="web-mode-variable-name">nextRoute</span> = modalList<span class="rainbow-delimiters-depth-2">[</span>nextIndex<span class="rainbow-delimiters-depth-2">]</span>;
+  <span class="web-mode-keyword">const</span> <span class="web-mode-variable-name">shouldShowFn</span> = SHOULD_SHOW_MAP<span class="rainbow-delimiters-depth-2">[</span>nextRoute<span class="rainbow-delimiters-depth-2">]</span>;
+  <span class="web-mode-keyword">const</span> <span class="web-mode-variable-name">shouldShow</span> = yield* <span class="web-mode-function-call">shouldShowFn</span><span class="rainbow-delimiters-depth-2">()</span>;
+
+  <span class="web-mode-keyword">if</span> <span class="rainbow-delimiters-depth-2">(</span>shouldShow<span class="rainbow-delimiters-depth-2">)</span> <span class="rainbow-delimiters-depth-2">{</span>
+    hashHistory.<span class="web-mode-function-call">push</span><span class="rainbow-delimiters-depth-3">(</span>nextRoute<span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span> <span class="web-mode-keyword">else</span> <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">yield</span> *gotoIndex<span class="rainbow-delimiters-depth-3">(</span>nextIndex + 1<span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span>
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">function</span> *alwaysShow<span class="rainbow-delimiters-depth-1">()</span> <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-keyword">return</span> <span class="web-mode-constant">true</span>;
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">function</span> *shouldShowCheck<span class="rainbow-delimiters-depth-1">()</span> <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-2">{</span> formData <span class="rainbow-delimiters-depth-2">}</span> = <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">select</span><span class="rainbow-delimiters-depth-2">()</span>;
+
+  <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">put</span><span class="rainbow-delimiters-depth-2">(</span>actions.<span class="web-mode-function-call">callCheck</span><span class="rainbow-delimiters-depth-3">()</span><span class="rainbow-delimiters-depth-2">)</span>;
+  <span class="web-mode-keyword">try</span> <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">call</span><span class="rainbow-delimiters-depth-3">(</span>request, <span class="web-mode-javascript-string">'/api/check'</span>, formData<span class="rainbow-delimiters-depth-3">)</span>;
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">put</span><span class="rainbow-delimiters-depth-3">(</span>actions.<span class="web-mode-function-call">callCheckSucceeded</span><span class="rainbow-delimiters-depth-4">()</span><span class="rainbow-delimiters-depth-3">)</span>;
+    <span class="web-mode-keyword">return</span> <span class="web-mode-constant">false</span>;
+  <span class="rainbow-delimiters-depth-2">}</span> <span class="web-mode-keyword">catch</span> <span class="rainbow-delimiters-depth-2">(</span>e<span class="rainbow-delimiters-depth-2">)</span> <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">put</span><span class="rainbow-delimiters-depth-3">(</span>actions.<span class="web-mode-function-call">callCheckFailed</span><span class="rainbow-delimiters-depth-4">()</span><span class="rainbow-delimiters-depth-3">)</span>;
+    <span class="web-mode-keyword">return</span> <span class="web-mode-constant">true</span>;
+  <span class="rainbow-delimiters-depth-2">}</span>
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">function</span> *gotoDone<span class="rainbow-delimiters-depth-1">()</span> <span class="rainbow-delimiters-depth-1">{</span>
+  hashHistory.<span class="web-mode-function-call">push</span><span class="rainbow-delimiters-depth-2">(</span><span class="web-mode-javascript-string">'/done'</span><span class="rainbow-delimiters-depth-2">)</span>;
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">function</span> *storeName<span class="rainbow-delimiters-depth-1">(</span>action<span class="rainbow-delimiters-depth-1">)</span> <span class="rainbow-delimiters-depth-1"><span class="ATTRLIST">{</span></span>
+  <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-2">{</span> name <span class="rainbow-delimiters-depth-2">}</span> = action;
+
+  <span class="web-mode-keyword">try</span> <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">call</span><span class="rainbow-delimiters-depth-3">(</span>request, <span class="web-mode-javascript-string">'/api/name'</span>, name<span class="rainbow-delimiters-depth-3">)</span>;
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">put</span><span class="rainbow-delimiters-depth-3">(</span>actions.<span class="web-mode-function-call">storeNameSucceeded</span><span class="rainbow-delimiters-depth-4">(</span>name<span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span>;
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">put</span><span class="rainbow-delimiters-depth-3">(</span>actions.<span class="web-mode-function-call">gotoNext</span><span class="rainbow-delimiters-depth-4">()</span><span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span> <span class="web-mode-keyword">catch</span> <span class="rainbow-delimiters-depth-2">(</span>e<span class="rainbow-delimiters-depth-2">)</span> <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">put</span><span class="rainbow-delimiters-depth-3">(</span>actions.<span class="web-mode-function-call">storeNameFailed</span><span class="rainbow-delimiters-depth-4">(</span>e<span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span>
+<span class="rainbow-delimiters-depth-1"><span class="ATTRLIST">}</span></span>
+
+<span class="web-mode-keyword">function</span> *storePhone<span class="rainbow-delimiters-depth-1">(</span>action<span class="rainbow-delimiters-depth-1">)</span> <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-2">{</span> phone <span class="rainbow-delimiters-depth-2">}</span> = action;
+
+  <span class="web-mode-keyword">try</span> <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">call</span><span class="rainbow-delimiters-depth-3">(</span>request, <span class="web-mode-javascript-string">'/api/phone'</span>, phone<span class="rainbow-delimiters-depth-3">)</span>;
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">put</span><span class="rainbow-delimiters-depth-3">(</span>actions.<span class="web-mode-function-call">storePhoneSucceeded</span><span class="rainbow-delimiters-depth-4">(</span>phone<span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span>;
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">put</span><span class="rainbow-delimiters-depth-3">(</span>actions.<span class="web-mode-function-call">gotoNext</span><span class="rainbow-delimiters-depth-4">()</span><span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span> <span class="web-mode-keyword">catch</span> <span class="rainbow-delimiters-depth-2">(</span>e<span class="rainbow-delimiters-depth-2">)</span> <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">yield</span> <span class="web-mode-function-call">put</span><span class="rainbow-delimiters-depth-3">(</span>actions.<span class="web-mode-function-call">storePhoneFailed</span><span class="rainbow-delimiters-depth-4">(</span>e<span class="rainbow-delimiters-depth-4">)</span><span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span>
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">function</span> *watchGotoNext<span class="rainbow-delimiters-depth-1">()</span> <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-keyword">yield</span> *takeEvery<span class="rainbow-delimiters-depth-2">(</span>actions.GOTO_NEXT, gotoNext<span class="rainbow-delimiters-depth-2">)</span>;
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">function</span> *watchGotoDone<span class="rainbow-delimiters-depth-1">()</span> <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-keyword">yield</span> *takeEvery<span class="rainbow-delimiters-depth-2">(</span>actions.GOTO_DONE, gotoDone<span class="rainbow-delimiters-depth-2">)</span>;
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">function</span> *watchStoreName<span class="rainbow-delimiters-depth-1">()</span> <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-keyword">yield</span> *takeEvery<span class="rainbow-delimiters-depth-2">(</span>actions.STORE_NAME_REQUESTED, storeName<span class="rainbow-delimiters-depth-2">)</span>;
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">function</span> *watchStorePhone<span class="rainbow-delimiters-depth-1">()</span> <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-keyword">yield</span> *takeEvery<span class="rainbow-delimiters-depth-2">(</span>actions.STORE_PHONE_REQUESTED, storePhone<span class="rainbow-delimiters-depth-2">)</span>;
+<span class="rainbow-delimiters-depth-1">}</span>
+
+<span class="web-mode-keyword">export</span> <span class="web-mode-keyword">default</span> <span class="web-mode-keyword">function</span> *modals<span class="rainbow-delimiters-depth-1">()</span> <span class="rainbow-delimiters-depth-1">{</span>
+  <span class="web-mode-keyword">yield</span> <span class="rainbow-delimiters-depth-2">[</span>
+    <span class="web-mode-function-call">fork</span><span class="rainbow-delimiters-depth-3">(</span>watchGotoNext<span class="rainbow-delimiters-depth-3">)</span>,
+    <span class="web-mode-function-call">fork</span><span class="rainbow-delimiters-depth-3">(</span>watchGotoDone<span class="rainbow-delimiters-depth-3">)</span>,
+    <span class="web-mode-function-call">fork</span><span class="rainbow-delimiters-depth-3">(</span>watchStoreName<span class="rainbow-delimiters-depth-3">)</span>,
+    <span class="web-mode-function-call">fork</span><span class="rainbow-delimiters-depth-3">(</span>watchStorePhone<span class="rainbow-delimiters-depth-3">)</span>
+  <span class="rainbow-delimiters-depth-2">]</span>
+<span class="rainbow-delimiters-depth-1">}</span>
+</pre>
+  </body>
+</html>

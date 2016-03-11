@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!-- Created by htmlize-1.47 in css mode. -->
+<html>
+  <head>
+    <title>ModalName.js</title>
+    <style type="text/css">
+    <!--
+      body {
+        color: #000000;
+        background-color: #f5f5f5;
+      }
+      .ATTRLIST {
+        /* (:weight ultra-bold :foreground "Springgreen3") */
+        color: #00cd66;
+      }
+      .rainbow-delimiters-depth-1 {
+        /* rainbow-delimiters-depth-1-face */
+        color: #707183;
+      }
+      .rainbow-delimiters-depth-2 {
+        /* rainbow-delimiters-depth-2-face */
+        color: #7388d6;
+      }
+      .rainbow-delimiters-depth-3 {
+        /* rainbow-delimiters-depth-3-face */
+        color: #909183;
+      }
+      .rainbow-delimiters-depth-4 {
+        /* rainbow-delimiters-depth-4-face */
+        color: #709870;
+      }
+      .rainbow-delimiters-depth-5 {
+        /* rainbow-delimiters-depth-5-face */
+        color: #907373;
+      }
+      .rainbow-delimiters-depth-6 {
+        /* rainbow-delimiters-depth-6-face */
+        color: #6276ba;
+      }
+      .web-mode-block-delimiter {
+        /* web-mode-block-delimiter-face */
+        color: #cdad00;
+      }
+      .web-mode-constant {
+        /* web-mode-constant-face */
+        color: #6e8b3d;
+      }
+      .web-mode-function-call {
+        /* web-mode-function-call-face */
+        color: #cd9b1d;
+      }
+      .web-mode-function-name {
+        /* web-mode-function-name-face */
+        color: #cd9b1d;
+      }
+      .web-mode-html-attr-equal {
+        /* web-mode-html-attr-equal-face */
+        color: #8b8989;
+      }
+      .web-mode-html-attr-name {
+        /* web-mode-html-attr-name-face */
+        color: #8b8989;
+      }
+      .web-mode-html-attr-value {
+        /* web-mode-html-attr-value-face */
+        color: #8b7355;
+      }
+      .web-mode-html-tag {
+        /* web-mode-html-tag-face */
+        color: #8b8989;
+      }
+      .web-mode-html-tag-bracket {
+        /* web-mode-html-tag-bracket-face */
+        color: #242424;
+      }
+      .web-mode-javascript-comment {
+        /* web-mode-javascript-comment-face */
+        color: #7f7f7f;
+      }
+      .web-mode-javascript-string {
+        /* web-mode-javascript-string-face */
+        color: #8b7355;
+      }
+      .web-mode-keyword {
+        /* web-mode-keyword-face */
+        color: #1c86ee;
+      }
+      .web-mode-type {
+        /* web-mode-type-face */
+        color: #00688b;
+      }
+      .web-mode-variable-name {
+        /* web-mode-variable-name-face */
+        color: #2e8b57;
+      }
+
+      a {
+        color: inherit;
+        background-color: inherit;
+        font: inherit;
+        text-decoration: inherit;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    -->
+    </style>
+  </head>
+  <body>
+    <pre>
+<span class="web-mode-keyword">import</span> React, <span class="rainbow-delimiters-depth-1">{</span> Component <span class="rainbow-delimiters-depth-1">}</span> <span class="web-mode-keyword">from</span> <span class="web-mode-javascript-string">'react'</span>;
+<span class="web-mode-keyword">import</span> <span class="rainbow-delimiters-depth-1">{</span> Modal, Button, Input <span class="rainbow-delimiters-depth-1">}</span> <span class="web-mode-keyword">from</span> <span class="web-mode-javascript-string">'react-bootstrap'</span>;
+
+
+<span class="web-mode-keyword">export</span> <span class="web-mode-keyword">default</span> <span class="web-mode-keyword">class</span> <span class="web-mode-type">ModalName</span> <span class="web-mode-keyword">extends</span> <span class="web-mode-type">Component</span> <span class="rainbow-delimiters-depth-1"><span class="ATTRLIST">{</span></span>
+  <span class="web-mode-function-call">constructor</span><span class="rainbow-delimiters-depth-2">(</span>props<span class="rainbow-delimiters-depth-2">)</span> <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">super</span><span class="rainbow-delimiters-depth-3">(</span>props<span class="rainbow-delimiters-depth-3">)</span>;
+
+    <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-3">{</span> <span class="web-mode-variable-name">formData</span>: <span class="rainbow-delimiters-depth-4">{</span> name <span class="rainbow-delimiters-depth-4">}</span> <span class="rainbow-delimiters-depth-3">}</span> = props;
+    <span class="web-mode-constant">this</span>.state = <span class="rainbow-delimiters-depth-3">{</span>
+      <span class="web-mode-variable-name">name</span>: name || <span class="web-mode-javascript-string">''</span>
+    <span class="rainbow-delimiters-depth-3">}</span>;
+  <span class="rainbow-delimiters-depth-2">}</span>
+
+!  <span class="web-mode-javascript-comment">// I guess I should put a comment somewhere</span>
+  <span class="web-mode-function-call">render</span><span class="rainbow-delimiters-depth-2">()</span> <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-3">{</span> step, requestStatus, apiName, errorMsg, ...props <span class="rainbow-delimiters-depth-3">}</span> = <span class="web-mode-constant">this</span>.props;
+    <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-3">{</span> name <span class="rainbow-delimiters-depth-3">}</span> = <span class="web-mode-constant">this</span>.state;
+
+    <span class="web-mode-keyword">return</span> <span class="rainbow-delimiters-depth-3">(</span>
+      <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">Modal</span> <span class="rainbow-delimiters-depth-4">{</span><span class="web-mode-block-delimiter">...</span>props<span class="rainbow-delimiters-depth-4">}</span><span class="web-mode-html-tag-bracket">&gt;</span>
+        <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">Modal</span>.Header <span class="web-mode-html-attr-name">closeButton</span><span class="web-mode-html-tag-bracket">&gt;</span>
+          <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">Modal</span>.Title<span class="web-mode-html-tag-bracket">&gt;</span>Step <span class="rainbow-delimiters-depth-4">{</span>step<span class="rainbow-delimiters-depth-4">}</span> - Name<span class="web-mode-html-tag-bracket">&lt;/</span><span class="web-mode-html-tag">Modal</span>.Title<span class="web-mode-html-tag-bracket">&gt;</span>
+        <span class="web-mode-html-tag-bracket">&lt;/</span><span class="web-mode-html-tag">Modal</span>.Header<span class="web-mode-html-tag-bracket">&gt;</span>
+        <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">Modal</span>.Body<span class="web-mode-html-tag-bracket">&gt;</span>
+          <span class="rainbow-delimiters-depth-4">{</span>requestStatus === <span class="web-mode-javascript-string">'REQUESTING'</span> &amp;&amp;
+           <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">p</span><span class="web-mode-html-tag-bracket">&gt;&lt;</span><span class="web-mode-html-tag">em</span><span class="web-mode-html-tag-bracket">&gt;</span><span class="rainbow-delimiters-depth-5">{</span><span class="web-mode-javascript-string">`Making fake ajax request to </span><span class="web-mode-variable-name">${apiName}</span><span class="web-mode-javascript-string"> api...`</span><span class="rainbow-delimiters-depth-5">}</span><span class="web-mode-html-tag-bracket">&lt;/</span><span class="web-mode-html-tag">em</span><span class="web-mode-html-tag-bracket">&gt;&lt;/</span><span class="web-mode-html-tag">p</span><span class="web-mode-html-tag-bracket">&gt;</span><span class="rainbow-delimiters-depth-4">}</span>
+          <span class="rainbow-delimiters-depth-4">{</span>errorMsg &amp;&amp; <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">p</span><span class="web-mode-html-tag-bracket">&gt;&lt;</span><span class="web-mode-html-tag">em</span><span class="web-mode-html-tag-bracket">&gt;</span><span class="rainbow-delimiters-depth-5">{</span>errorMsg<span class="rainbow-delimiters-depth-5">}</span><span class="web-mode-html-tag-bracket">&lt;/</span><span class="web-mode-html-tag">em</span><span class="web-mode-html-tag-bracket">&gt;&lt;/</span><span class="web-mode-html-tag">p</span><span class="web-mode-html-tag-bracket">&gt;</span><span class="rainbow-delimiters-depth-4">}</span>
+          <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">Input</span>
+            <span class="web-mode-html-attr-name">label</span><span class="web-mode-html-attr-equal">=</span><span class="web-mode-html-attr-value">"Enter your name"</span>
+            <span class="web-mode-html-attr-name">type</span><span class="web-mode-html-attr-equal">=</span><span class="web-mode-html-attr-value">"text"</span>
+            <span class="web-mode-html-attr-name">bsSize</span><span class="web-mode-html-attr-equal">=</span><span class="web-mode-html-attr-value">"large"</span>
+            <span class="rainbow-delimiters-depth-4">{</span><span class="web-mode-block-delimiter">...</span><span class="rainbow-delimiters-depth-5">(</span>requestStatus === <span class="web-mode-javascript-string">'FAILED'</span> ? <span class="rainbow-delimiters-depth-6">{</span><span class="web-mode-variable-name">bsStyle</span>: <span class="web-mode-javascript-string">'error'</span><span class="rainbow-delimiters-depth-6">}</span> : <span class="rainbow-delimiters-depth-6">{}</span><span class="rainbow-delimiters-depth-5">)</span><span class="rainbow-delimiters-depth-4">}</span>
+            <span class="web-mode-html-attr-name">value</span><span class="web-mode-html-attr-equal">=</span><span class="rainbow-delimiters-depth-4">{</span>name<span class="rainbow-delimiters-depth-4">}</span>
+            <span class="web-mode-html-attr-name">onChange</span><span class="web-mode-html-attr-equal">=</span><span class="rainbow-delimiters-depth-4">{</span><span class="web-mode-constant">this</span>._handleInputChange<span class="rainbow-delimiters-depth-4">}</span>
+            <span class="web-mode-html-attr-name">ref</span><span class="web-mode-html-attr-equal">=</span><span class="rainbow-delimiters-depth-4">{</span><span class="rainbow-delimiters-depth-5">(</span>c<span class="rainbow-delimiters-depth-5">)</span> =&gt; <span class="web-mode-constant">this</span>._input = c<span class="rainbow-delimiters-depth-4">}</span>
+          <span class="web-mode-html-tag-bracket">/&gt;</span>
+        <span class="web-mode-html-tag-bracket">&lt;/</span><span class="web-mode-html-tag">Modal</span>.Body<span class="web-mode-html-tag-bracket">&gt;</span>
+        <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">Modal</span>.Footer<span class="web-mode-html-tag-bracket">&gt;</span>
+          <span class="web-mode-html-tag-bracket">&lt;</span><span class="web-mode-html-tag">Button</span> <span class="web-mode-html-attr-name">bsStyle</span><span class="web-mode-html-attr-equal">=</span><span class="web-mode-html-attr-value">"primary"</span> <span class="web-mode-html-attr-name">onClick</span><span class="web-mode-html-attr-equal">=</span><span class="rainbow-delimiters-depth-4">{</span><span class="web-mode-constant">this</span>._handleClickNext<span class="rainbow-delimiters-depth-4">}</span><span class="web-mode-html-tag-bracket">&gt;</span>Next<span class="web-mode-html-tag-bracket">&lt;/</span><span class="web-mode-html-tag">Button</span><span class="web-mode-html-tag-bracket">&gt;</span>
+        <span class="web-mode-html-tag-bracket">&lt;/</span><span class="web-mode-html-tag">Modal</span>.Footer<span class="web-mode-html-tag-bracket">&gt;</span>
+      <span class="web-mode-html-tag-bracket">&lt;/</span><span class="web-mode-html-tag">Modal</span><span class="web-mode-html-tag-bracket">&gt;</span>
+    <span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span>
+
+  <span class="web-mode-function-name">_handleInputChange</span> = <span class="rainbow-delimiters-depth-2">()</span> =&gt; <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-constant">this</span>.<span class="web-mode-function-call">setState</span><span class="rainbow-delimiters-depth-3">(</span><span class="rainbow-delimiters-depth-4">{</span>
+      <span class="web-mode-variable-name">name</span>: <span class="web-mode-constant">this</span>._input.<span class="web-mode-function-call">getValue</span><span class="rainbow-delimiters-depth-5">()</span>
+    <span class="rainbow-delimiters-depth-4">}</span><span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span>;
+
+  <span class="web-mode-function-name">_handleClickNext</span> = <span class="rainbow-delimiters-depth-2">()</span> =&gt; <span class="rainbow-delimiters-depth-2">{</span>
+    <span class="web-mode-keyword">const</span> <span class="rainbow-delimiters-depth-3">{</span> storeName <span class="rainbow-delimiters-depth-3">}</span> = <span class="web-mode-constant">this</span>.props;
+    <span class="web-mode-keyword">const</span> <span class="web-mode-variable-name">name</span> = <span class="web-mode-constant">this</span>._input.<span class="web-mode-function-call">getValue</span><span class="rainbow-delimiters-depth-3">()</span>;
+
+    <span class="web-mode-function-call">storeName</span><span class="rainbow-delimiters-depth-3">(</span>name<span class="rainbow-delimiters-depth-3">)</span>;
+  <span class="rainbow-delimiters-depth-2">}</span>;
+<span class="rainbow-delimiters-depth-1"><span class="ATTRLIST">}</span></span>
+</pre>
+  </body>
+</html>
