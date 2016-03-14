@@ -13,15 +13,29 @@ const SHOULD_SHOW_MAP = {
   '/done': alwaysShow
 };
 
+// selectors
+function getCurrIndex(state) {
+  return state.currIndex;
+}
+
+function getModalList(state) {
+  return state.modalList;
+}
+
+function getFormData(state) {
+  return state.formData;
+}
+
+// Note: some of these functions are exported for testing only
+
 function *gotoNext() {
-  const { currIndex } = yield select();
+  const currIndex = yield select(getCurrIndex);
 
   yield *gotoIndex(currIndex + 1);
 }
 
 function *gotoIndex(nextIndex) {
-  const state = yield select();
-  const { modalList } = state;
+  const modalList = yield select(getModalList);
   const nextRoute = modalList[nextIndex];
   const shouldShowFn = SHOULD_SHOW_MAP[nextRoute];
   const shouldShow = yield* shouldShowFn();
@@ -38,7 +52,7 @@ function *alwaysShow() {
 }
 
 function *shouldShowCheck() {
-  const { formData } = yield select();
+  const formData = yield select(getFormData);
 
   yield put(actions.callCheck());
   try {
@@ -55,7 +69,7 @@ function *gotoDone() {
   hashHistory.push('/done');
 }
 
-function *storeName(action) {
+export function *storeName(action) {
   const { name } = action;
 
   try {
