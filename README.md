@@ -24,6 +24,7 @@ http://saltycrane.github.io/react-chained-modals-comparison
  
 ## Usage
 
+    $ cd L1.react
     $ npm install
     $ npm start
     $ # goto http://localhost:3000/#/name in the browser
