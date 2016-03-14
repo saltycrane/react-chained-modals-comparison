@@ -2,35 +2,34 @@ import React, { Component } from 'react';
 import { Modal, Button, Input } from 'react-bootstrap';
 
 
-class ModalPhone extends Component {
+class ModalName extends Component {
   constructor(props) {
     super(props);
 
-    const { formData: { phone } } = props;
+    const { formData: { name } } = props;
     this.state = {
-      phone: phone || ''
+      name: name || ''
     };
   }
 
   render() {
-    const { step, requestStatus, apiName, errorMsg, ...props } = this.props;
-    const { phone } = this.state;
+    const { step, requestStatus, errorMsg, ...props } = this.props;
+    const { name } = this.state;
 
     return (
       <Modal {...props}>
         <Modal.Header closeButton>
-          <Modal.Title>Step {step} - Phone Number</Modal.Title>
+          <Modal.Title>Step {step} - Name</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {requestStatus === 'REQUESTING' &&
-           <p><em>{`Making fake ajax request to ${apiName} api...`}</em></p>}
+          {requestStatus === 'REQUESTING' && <p><em>Making fake ajax request...</em></p>}
           {errorMsg && <p><em>{errorMsg}</em></p>}
           <Input
-            label="Enter your phone number"
+            label="Enter your name"
             type="text"
             bsSize="large"
             {...(requestStatus === 'FAILED' ? {bsStyle: 'error'} : {})}
-            value={phone}
+            value={name}
             onChange={this._handleInputChange}
             ref={(c) => this._input = c}
           />
@@ -42,18 +41,26 @@ class ModalPhone extends Component {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { requestStatus, gotoNext } = nextProps;
+
+    if (requestStatus === 'SUCCEEDED') {
+      gotoNext();
+    }
+  }
+
   _handleInputChange = () => {
     this.setState({
-      phone: this._input.getValue()
+      name: this._input.getValue()
     });
   };
 
   _handleClickNext = () => {
-    const { storePhone } = this.props;
-    const phone = this._input.getValue();
+    const { storeName } = this.props;
+    const name = this._input.getValue();
 
-    storePhone(phone);
+    storeName(name);
   };
 }
 
-export default ModalPhone;
+export default ModalName;

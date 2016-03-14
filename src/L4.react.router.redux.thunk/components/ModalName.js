@@ -13,7 +13,7 @@ class ModalName extends Component {
   }
 
   render() {
-    const { step, requestStatus, errorMsg, ...props } = this.props;
+    const { step, requestStatus, apiName, errorMsg, ...props } = this.props;
     const { name } = this.state;
 
     return (
@@ -22,7 +22,8 @@ class ModalName extends Component {
           <Modal.Title>Step {step} - Name</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {requestStatus === 'REQUESTING' && <p><em>Making fake ajax request...</em></p>}
+          {requestStatus === 'REQUESTING' &&
+           <p><em>{`Making fake ajax request to ${apiName} api...`}</em></p>}
           {errorMsg && <p><em>{errorMsg}</em></p>}
           <Input
             label="Enter your name"
@@ -39,14 +40,6 @@ class ModalName extends Component {
         </Modal.Footer>
       </Modal>
     );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { requestStatus, gotoNext } = nextProps;
-
-    if (requestStatus === 'SUCCEEDED') {
-      gotoNext();
-    }
   }
 
   _handleInputChange = () => {

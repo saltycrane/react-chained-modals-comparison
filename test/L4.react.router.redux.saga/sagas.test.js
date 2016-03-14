@@ -3,8 +3,8 @@ import { expect } from 'chai';
 import { call, put } from 'redux-saga/effects';
 
 import { request } from '../../src/request-simulator';
-import * as actions from '../../src/L5.react.router.redux.saga/actions';
-import * as sagas from '../../src/L5.react.router.redux.saga/sagas';
+import * as actions from '../../src/L4.react.router.redux.saga/actions';
+import * as sagas from '../../src/L4.react.router.redux.saga/sagas';
 
 
 describe('sagas', () => {

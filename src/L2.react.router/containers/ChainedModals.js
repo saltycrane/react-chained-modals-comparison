@@ -14,7 +14,7 @@ class ChainedModals extends Component {
     // https://github.com/reactjs/react-router/blob/v2.0.0/examples/passing-props-to-children/app.js
     const modalElement = children && React.cloneElement(children, {
       step: currIndex + 1,
-      onClickNext: this._handleClickNext,
+      gotoNext: this._gotoNext,
       backdrop: false,
       show: true,
       onHide: this._handleModalHide
@@ -42,7 +42,7 @@ class ChainedModals extends Component {
     this.setState({currIndex: index});
   }
 
-  _handleClickNext = () => {
+  _gotoNext = () => {
     const { modalList } = this.props;
     const { currIndex } = this.state;
     const nextIndex = currIndex + 1;

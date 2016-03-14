@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
 import { Modal, Button, Input } from 'react-bootstrap';
 
-import { request } from '../../request-simulator';
 
-
-class ModalPhone extends Component {
+export default class ModalPhone extends Component {
   constructor(props) {
     super(props);
 
     const { formData: { phone } } = props;
     this.state = {
-      phone: phone || '',
-      isRequesting: false,
-      hasError: false,
-      errorMsg: null
+      phone: phone || ''
     };
   }
 
   render() {
-    const { step, ...props } = this.props;
-    const { phone, isRequesting, hasError, errorMsg } = this.state;
+    const { step, requestStatus, errorMsg, ...props } = this.props;
+    const { phone } = this.state;
 
     return (
       <Modal {...props}>
@@ -27,13 +22,13 @@ class ModalPhone extends Component {
           <Modal.Title>Step {step} - Phone Number</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {isRequesting && <p><em>Making fake ajax request...</em></p>}
+          {requestStatus === 'REQUESTING' && <p><em>Making fake ajax request...</em></p>}
           {errorMsg && <p><em>{errorMsg}</em></p>}
           <Input
             label="Enter your phone number"
             type="text"
             bsSize="large"
-            {...(hasError ? {bsStyle: 'error'} : {})}
+            {...(requestStatus === 'FAILED' ? {bsStyle: 'error'} : {})}
             value={phone}
             onChange={this._handleInputChange}
             ref={(c) => this._input = c}
@@ -46,6 +41,14 @@ class ModalPhone extends Component {
     );
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { requestStatus, gotoNext } = nextProps;
+
+    if (requestStatus === 'SUCCEEDED') {
+      gotoNext();
+    }
+  }
+
   _handleInputChange = () => {
     this.setState({
       phone: this._input.getValue()
@@ -53,24 +56,9 @@ class ModalPhone extends Component {
   };
 
   _handleClickNext = () => {
-    const { storePhone, gotoNext } = this.props;
+    const { storePhone } = this.props;
     const phone = this._input.getValue();
 
-    this.setState({isRequesting: true, errorMsg: null});
-
-    request('/api/phone', phone)
-      .then(() => {
-        storePhone(phone);
-        gotoNext();
-      })
-      .catch((error) => {
-        this.setState({
-          isRequesting: false,
-          hasError: true,
-          errorMsg: error
-        });
-      });
+    storePhone(phone);
   };
 }
-
-export default ModalPhone;

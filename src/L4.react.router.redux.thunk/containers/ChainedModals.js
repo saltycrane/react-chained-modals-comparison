@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -10,32 +10,34 @@ import {
 import ModalBackdrop from '../components/ModalBackdrop';
 
 
-const ChainedModals = (props) => {
-  const { children, currIndex, gotoDone, ...rest } = props;
+class ChainedModals extends Component {
+  render() {
+    const { children, currIndex, gotoDone, ...props } = this.props;
 
-  // Clone the child view element so we can pass props to it.
-  // Taken from this react-router example:
-  // https://github.com/reactjs/react-router/blob/v2.0.0/examples/passing-props-to-children/app.js
-  const modalElement = children && React.cloneElement(children, {
-    step: currIndex + 1,
-    backdrop: false,
-    show: true,
-    onHide: gotoDone,
-    ...rest
-  });
+    // Clone the child view element so we can pass props to it.
+    // Taken from this react-router example:
+    // https://github.com/reactjs/react-router/blob/v2.0.0/examples/passing-props-to-children/app.js
+    const modalElement = children && React.cloneElement(children, {
+      step: currIndex + 1,
+      backdrop: false,
+      show: true,
+      onHide: gotoDone,
+      ...props
+    });
 
-  return (
-    <div>
-      <ModalBackdrop />
-      {modalElement}
-    </div>
-  );
-};
+    return (
+      <div>
+        <ModalBackdrop />
+        {modalElement}
+      </div>
+    );
+  }
+}
 
 export default connect(
   function mapStateToProps(state) {
-    const { currIndex, modalList, requestStatus, errorMsg, formData } = state;
-    return { currIndex, modalList, requestStatus, errorMsg, formData };
+    const { currIndex, modalList, requestStatus, apiName, errorMsg, formData } = state;
+    return { currIndex, modalList, requestStatus, apiName, errorMsg, formData };
   },
   function mapDispatchToProps(dispatch) {
     return {

@@ -1,7 +1,7 @@
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 
-import * as actions from '../../src/L5.react.router.redux.thunk/actions.js';
+import * as actions from '../../src/L4.react.router.redux.thunk/actions.js';
 
 
 const mockStore = configureMockStore([thunk]);

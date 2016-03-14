@@ -6,7 +6,6 @@ import thunk from 'redux-thunk';
 
 import ModalName from '../components/ModalName';
 import ModalPhone from '../components/ModalPhone';
-import ModalCheck from '../components/ModalCheck';
 import PageBehindModals from '../components/PageBehindModals';
 import { routeChanged } from '../actions';
 import reducer from '../reducers';
@@ -19,22 +18,6 @@ const store = createStore(reducer, applyMiddleware(thunk));
 // from https://github.com/reactjs/react-router-redux/issues/257
 // TODO: where should this line go?
 hashHistory.listen(location => store.dispatch(routeChanged(location)));
-
-const RoutedApp = () => (
-  <Provider store={store}>
-    <Router history={hashHistory}>
-      <Route component={App}>
-        <Route path="/" component={ChainedModals}>
-          <Route path="/name" component={ModalName} />
-          <Route path="/phone" component={ModalPhone} />
-          <Route path="/check" component={ModalCheck} />
-          <IndexRedirect to="/name" />
-        </Route>
-        <Route path="/done" />
-      </Route>
-    </Router>
-  </Provider>
-);
 
 class App extends Component {
   render() {
@@ -49,4 +32,21 @@ class App extends Component {
   }
 }
 
-export default RoutedApp;
+export default class RoutedApp extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <Router history={hashHistory}>
+          <Route component={App}>
+            <Route path="/" component={ChainedModals}>
+              <Route path="/name" component={ModalName} />
+              <Route path="/phone" component={ModalPhone} />
+              <IndexRedirect to="/name" />
+            </Route>
+            <Route path="/done" />
+          </Route>
+        </Router>
+      </Provider>
+    );
+  }
+}

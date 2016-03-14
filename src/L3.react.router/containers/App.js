@@ -11,7 +11,10 @@ const RoutedApp = () => (
   <Router history={hashHistory}>
     <Route component={App}>
       <Route path="/" component={
-        partial(ChainedModals, {modalList: ['/name', '/phone', '/done']})}>
+        partial(ChainedModals, {
+          modalList: ['/name', '/phone', '/done'],
+          formData: {name: 'Backend'}
+        })}>
         <Route path="/name" component={ModalName} />
         <Route path="/phone" component={ModalPhone} />
         <IndexRedirect to="/name" />
