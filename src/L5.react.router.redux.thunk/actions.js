@@ -6,7 +6,7 @@ import { request } from '../request-simulator';
 const SHOULD_SHOW_MAP = {
   '/name': alwaysShow,
   '/phone': alwaysShow,
-  '/check': shouldShowCheck,
+  '/check': shouldShowDoubleCheck,
   '/done': alwaysShow
 };
 
@@ -17,9 +17,9 @@ export const STORE_NAME_FAILED = 'STORE_NAME_FAILED';
 export const STORE_PHONE_REQUESTED = 'STORE_PHONE_REQUESTED';
 export const STORE_PHONE_SUCCEEDED = 'STORE_PHONE_SUCCEEDED';
 export const STORE_PHONE_FAILED = 'STORE_PHONE_FAILED';
-export const CALL_CHECK_REQUESTED = 'CALL_CHECK_REQUESTED';
-export const CALL_CHECK_SUCCEEDED = 'CALL_CHECK_SUCCEEDED';
-export const CALL_CHECK_FAILED = 'CALL_CHECK_FAILED';
+export const CALL_DOUBLE_CHECK_REQUESTED = 'CALL_DOUBLE_CHECK_REQUESTED';
+export const CALL_DOUBLE_CHECK_SUCCEEDED = 'CALL_DOUBLE_CHECK_SUCCEEDED';
+export const CALL_DOUBLE_CHECK_FAILED = 'CALL_DOUBLE_CHECK_FAILED';
 
 function _storeNameRequested() {
   return {
@@ -61,21 +61,21 @@ function _storePhoneFailed(errorMsg) {
   };
 }
 
-function _callCheckRequested() {
+function _callDoubleCheckRequested() {
   return {
-    type: CALL_CHECK_REQUESTED
+    type: CALL_DOUBLE_CHECK_REQUESTED
   };
 }
 
-function _callCheckSucceeded() {
+function _callDoubleCheckSucceeded() {
   return {
-    type: CALL_CHECK_SUCCEEDED
+    type: CALL_DOUBLE_CHECK_SUCCEEDED
   };
 }
 
-function _callCheckFailed() {
+function _callDoubleCheckFailed() {
   return {
-    type: CALL_CHECK_FAILED
+    type: CALL_DOUBLE_CHECK_FAILED
   };
 }
 
@@ -94,7 +94,7 @@ export function gotoNext() {
   };
 }
 
-export function _gotoIndex(index) {
+function _gotoIndex(index) {
   return (dispatch, getState) => {
     const { modalList } = getState();
     const nextRoute = modalList[index];
@@ -110,26 +110,26 @@ export function _gotoIndex(index) {
   }
 }
 
-function alwaysShow() {
+export function alwaysShow() {
   return Promise.resolve();
 }
 
-function shouldShowCheck(dispatch, getState) {
+export function shouldShowDoubleCheck(dispatch, getState) {
   const { formData } = getState();
 
   // create a new promise here to invert the resolve/reject
   // i.e. a resolve from the API causes a reject here and vice versa
   // is there a better way to do this?
   return new Promise(function (resolve, reject) {
-    dispatch(_callCheckRequested());
+    dispatch(_callDoubleCheckRequested());
     request('/api/check', formData)
       .then(() => {
-        dispatch(_callCheckSucceeded());
-        reject('check view is not required');
+        dispatch(_callDoubleCheckSucceeded());
+        reject('double check view is not required');
       })
       .catch(() => {
-        dispatch(_callCheckFailed());
-        resolve('check view is required due to failed validation');
+        dispatch(_callDoubleCheckFailed());
+        resolve('double check view is required due to failed validation');
       });
   });
 }

@@ -98,9 +98,10 @@ http://saltycrane.github.io/react-chained-modals-comparison
 
 ## See also
 
- - http://stackoverflow.com/a/35641680/101911
+ - http://stackoverflow.com/questions/35623656/how-can-i-display-a-modal-dialog-in-redux-that-performs-asynchronous-actions/35641680#35641680 
  - https://medium.com/@MattiaManzati/tips-to-handle-authentication-in-redux-2-introducing-redux-saga-130d6872fbe7
  - http://stackoverflow.com/questions/34930735/pros-cons-of-using-redux-saga-with-es6-generators-vs-redux-thunk-with-es7-async/34933395#34933395
+ - http://stackoverflow.com/questions/34570758/why-do-we-need-middleware-for-async-flow-in-redux
 
 todo:
  - pass route and data object to a `clickNext` action

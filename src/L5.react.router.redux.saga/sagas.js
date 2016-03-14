@@ -55,7 +55,7 @@ function *gotoDone() {
   hashHistory.push('/done');
 }
 
-function *storeName(action) {
+export function *storeName(action) {
   const { name } = action;
 
   try {
