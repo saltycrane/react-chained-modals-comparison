@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+"""
+Usage:
+
+    $ # run from root directory
+    $ bin/upgrade
+
+"""
+import os
+import os.path
+
+
+def main():
+    for path in os.listdir('.'):
+        if not os.path.isdir(path):
+            continue
+        if path.startswith('.'):
+            continue
+        if not os.path.exists('%s/package.json' % path):
+            continue
+
+        os.chdir(path)
+        # os.system('ncu -u')
+        # os.system('npm install')
+
+        if 'redux' in path:
+            os.system('pwd')
+            os.system('npm uninstall --save-dev redux-mock-store')
+            os.system('npm install --save-dev redux-mock-store')
+
+        os.chdir('..')
+
+
+if __name__ == '__main__':
+    main()

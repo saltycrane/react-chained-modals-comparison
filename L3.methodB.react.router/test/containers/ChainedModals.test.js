@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 
 import ChainedModals from '../../src/containers/ChainedModals';
+import ModalName from '../../src/components/ModalName';
 
 
 describe('ChainedModals', () => {

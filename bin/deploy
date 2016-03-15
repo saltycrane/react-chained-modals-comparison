@@ -2,7 +2,8 @@
 """
 Usage:
 
-    $ ./deploy
+    $ # run from root directory
+    $ bin/deploy
     $ git subtree push --prefix dist origin gh-pages
 
 """
@@ -29,14 +30,14 @@ def main():
     links = []
     for path in os.listdir('.'):
         if os.path.isdir(path) and not path.startswith('.'):
-            if os.path.exists('%s/dist' % path):
-                os.system('mkdir -p dist/%s' % path)
-                os.system('rsync -avz --delete %s/dist/ dist/%s' % (path, path))
-                if os.path.exists('%s/index.html' % path):
-                    os.system('cp %s/index.html dist/%s' % (path, path))
+            if os.path.exists('./%s/dist' % path):
+                os.system('mkdir -p ./dist/%s' % path)
+                os.system('rsync -avz --delete ./%s/dist/ ./dist/%s' % (path, path))
+                if os.path.exists('./%s/index.html' % path):
+                    os.system('cp ./%s/index.html ./dist/%s' % (path, path))
                 links.append('<a href="%s">%s</a><br>' % (path, path))
 
-    with open('dist/index.html', 'w') as f:
+    with open('./dist/index.html', 'w') as f:
         f.write(INDEX_TEMPLATE % '\n'.join(links))
 
 if __name__ == '__main__':
