@@ -3,7 +3,7 @@
 Usage:
 
     $ # run from root directory
-    $ bin/deploy
+    $ bin/build
     $ git subtree push --prefix dist origin gh-pages
 
 """
@@ -29,13 +29,24 @@ INDEX_TEMPLATE = """\
 def main():
     links = []
     for path in os.listdir('.'):
-        if os.path.isdir(path) and not path.startswith('.'):
-            if os.path.exists('./%s/dist' % path):
-                os.system('mkdir -p ./dist/%s' % path)
-                os.system('rsync -avz --delete ./%s/dist/ ./dist/%s' % (path, path))
-                if os.path.exists('./%s/index.html' % path):
-                    os.system('cp ./%s/index.html ./dist/%s' % (path, path))
-                links.append('<a href="%s">%s</a><br>' % (path, path))
+        if not os.path.isdir(path):
+            continue
+        if path.startswith('.'):
+            continue
+        if not os.path.exists('./%s/dist' % path):
+            continue
+
+        # build
+        os.chdir(path)
+        os.system('npm run build')
+        os.chdir('..')
+
+        # copy subdirectory files
+        os.system('mkdir -p ./dist/%s' % path)
+        os.system('rsync -avz --delete ./%s/dist/ ./dist/%s' % (path, path))
+        if os.path.exists('./%s/index.html' % path):
+            os.system('cp ./%s/index.html ./dist/%s' % (path, path))
+        links.append('<a href="%s">%s</a><br>' % (path, path))
 
     with open('./dist/index.html', 'w') as f:
         f.write(INDEX_TEMPLATE % '\n'.join(links))

@@ -3,7 +3,7 @@
 Usage:
 
     $ # run from root directory
-    $ bin/upgrade
+    $ bin/test
 
 """
 import os
@@ -20,13 +20,11 @@ def main():
             continue
 
         os.chdir(path)
-        os.system('ncu -u')
-        os.system('npm install')
-        # if 'redux' in path:
-        #     os.system('pwd')
-        #     os.system('npm uninstall --save-dev redux-mock-store')
-        #     os.system('npm install --save-dev redux-mock-store')
+        rv = os.system('npm test')
         os.chdir('..')
+
+        if rv != 0:
+           break
 
 
 if __name__ == '__main__':

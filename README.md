@@ -28,6 +28,7 @@ http://saltycrane.github.io/react-chained-modals-comparison
     $ npm install
     $ npm start
     $ # goto http://localhost:3000 in the browser
+    $ # tested with Node 5.5.0
 
 ## Requirements / approaches
 

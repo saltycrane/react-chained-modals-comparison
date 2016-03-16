@@ -9,7 +9,6 @@ import {
   STORE_NAME_FAILED,
   STORE_PHONE_REQUESTED,
   STORE_PHONE_SUCCEEDED,
-  STORE_PHONE_FAILED,
   routeChanged,
   gotoNext,
   gotoDone,
