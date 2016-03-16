@@ -7,13 +7,15 @@ import * as actions from '../src/actions.js';
 const mockStore = configureMockStore([thunk]);
 
 describe('actions', () => {
-  describe('gotoDone', () => {
-    it('runs without error', () => {
-      const expectedActions = [];
-      const store = mockStore({}, expectedActions);
-      store.dispatch(actions.gotoDone);
-    });
-  });
+  // describe('gotoDone', () => {
+  //   it('runs without error', (done) => {
+  //     const store = mockStore({});
+  //     store.dispatch(gotoDone())
+  //       .then(() => {
+  //         done();
+  //       });
+  //   });
+  // });
 
   // normally the request would be mocked with a library such as nock
   // but I am just simulating the request

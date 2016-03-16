@@ -32,9 +32,7 @@ class ChainedModals extends Component {
 
   _gotoNext = () => {
     const { currIndex, modalList } = this.props;
-    const nextIndex = currIndex + 1;
-    const nextRoute = modalList[nextIndex];
-
+    const nextRoute = modalList[currIndex + 1];
     hashHistory.push(nextRoute);
   };
 

@@ -7,13 +7,12 @@ import { request } from '../request-simulator';
 class ModalName extends Component {
   state = {
     isRequesting: false,
-    hasError: false,
     errorMsg: null
   };
 
   render() {
     const { step, ...props } = this.props;
-    const { isRequesting, hasError, errorMsg } = this.state;
+    const { isRequesting, errorMsg } = this.state;
 
     return (
       <Modal {...props}>
@@ -27,7 +26,7 @@ class ModalName extends Component {
             label="Enter your name"
             type="text"
             bsSize="large"
-            {...(hasError ? {bsStyle: 'error'} : {})}
+            {...(errorMsg ? {bsStyle: 'error'} : {})}
             ref={(c) => this._input = c}
           />
         </Modal.Body>
@@ -43,17 +42,12 @@ class ModalName extends Component {
     const name = this._input.getValue();
 
     this.setState({isRequesting: true, errorMsg: null});
-
     request('/api/name', name)
       .then(() => {
         gotoNext();
       })
       .catch((error) => {
-        this.setState({
-          isRequesting: false,
-          hasError: true,
-          errorMsg: error
-        });
+        this.setState({isRequesting: false, errorMsg: error});
       });
   };
 }

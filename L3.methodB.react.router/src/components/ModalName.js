@@ -7,19 +7,17 @@ import { request } from '../request-simulator';
 class ModalName extends Component {
   constructor(props) {
     super(props);
-
     const { formData: { name } } = props;
     this.state = {
       name: name || '',
       isRequesting: false,
-      hasError: false,
       errorMsg: null
     };
   }
 
   render() {
     const { step, ...props } = this.props;
-    const { name, isRequesting, hasError, errorMsg } = this.state;
+    const { name, isRequesting, errorMsg } = this.state;
 
     return (
       <Modal {...props}>
@@ -33,7 +31,7 @@ class ModalName extends Component {
             label="Enter your name"
             type="text"
             bsSize="large"
-            {...(hasError ? {bsStyle: 'error'} : {})}
+            {...(errorMsg ? {bsStyle: 'error'} : {})}
             value={name}
             onChange={this._handleInputChange}
             ref={(c) => this._input = c}
@@ -57,18 +55,13 @@ class ModalName extends Component {
     const name = this._input.getValue();
 
     this.setState({isRequesting: true, errorMsg: null});
-
     request('/api/name', name)
       .then(() => {
         storeName(name);
         gotoNext();
       })
       .catch((error) => {
-        this.setState({
-          isRequesting: false,
-          hasError: true,
-          errorMsg: error
-        });
+        this.setState({isRequesting: false, errorMsg: error});
       });
   };
 }

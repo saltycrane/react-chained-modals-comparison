@@ -7,7 +7,6 @@ import ModalBackdrop from '../components/ModalBackdrop';
 class ChainedModals extends Component {
   constructor(props) {
     super(props);
-
     const { formData } = props;
     this.state = {
       currIndex: null,
@@ -23,9 +22,6 @@ class ChainedModals extends Component {
     const { children } = this.props;
     const { currIndex, formData } = this.state;
 
-    // Clone the child view element so we can pass props to it.
-    // Taken from this react-router example:
-    // https://github.com/reactjs/react-router/blob/v2.0.0/examples/passing-props-to-children/app.js
     const modalElement = children && React.cloneElement(children, {
       step: currIndex + 1,
       formData: formData,
@@ -64,7 +60,6 @@ class ChainedModals extends Component {
     const { currIndex } = this.state;
     const nextIndex = currIndex + 1;
     const nextRoute = modalList[nextIndex];
-
     this.setState({currIndex: nextIndex});
     hashHistory.push(nextRoute);
   };

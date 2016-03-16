@@ -12,7 +12,7 @@ const mockStore = configureMockStore();
 
 describe('ChainedModals', () => {
   it('renders without error', () => {
-    const store = mockStore({});
+    const store = mockStore();
     const wrapper = shallow(
       <Provider store={store}>
         <ChainedModals>
