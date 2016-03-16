@@ -2,17 +2,11 @@ import React, { Component } from 'react';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 
-import { routeChanged, storeName, storePhone } from '../actions';
+import { storeName, storePhone } from '../actions';
 import ModalBackdrop from '../components/ModalBackdrop';
 
 
 class ChainedModals extends Component {
-  componentWillMount() {
-    const { routeChanged } = this.props;
-
-    hashHistory.listen(location => routeChanged(location));
-  }
-
   render() {
     const { children, currIndex, ...props } = this.props;
 
@@ -56,7 +50,6 @@ export default connect(
   },
   function mapDispatchToProps(dispatch) {
     return {
-      routeChanged: (...args) => dispatch(routeChanged(...args)),
       storeName: (...args) => dispatch(storeName(...args)),
       storePhone: (...args) => dispatch(storePhone(...args))
     }

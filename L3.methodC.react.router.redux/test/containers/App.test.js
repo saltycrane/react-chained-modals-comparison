@@ -1,15 +1,3 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import { expect } from 'chai';
-
-import RoutedApp from '../../src/containers/App';
-
-
-describe('RoutedApp', () => {
-  it('renders without error', () => {
-    const wrapper = shallow(
-      <RoutedApp />
-    );
-    expect(wrapper).to.be.ok;
-  });
-});
+// Adding the history listener in App.js makes testing difficult because
+// hashHistory is undefined outside of a browser context.
+// https://github.com/reactjs/react-router/blob/v2.0.1/docs/guides/ServerRendering.md#history-singletons
