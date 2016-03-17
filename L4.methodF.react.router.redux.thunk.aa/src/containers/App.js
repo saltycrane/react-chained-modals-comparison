@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 
 import ModalName from '../components/ModalName';
 import ModalPhone from '../components/ModalPhone';
-import ModalCheck from '../components/ModalCheck';
+import ModalDoubleCheck from '../components/ModalDoubleCheck';
 import PageBehindModals from '../components/PageBehindModals';
 import { routeChanged } from '../actions';
 import reducer from '../reducers';
@@ -22,35 +22,32 @@ const store = createStore(reducer, applyMiddleware(thunk));
 // TODO: where should this line go?
 hashHistory.listen(location => store.dispatch(routeChanged(location)));
 
-class App extends Component {
-  render() {
-    const { children } = this.props;
-
-    return (
-      <div>
-        <PageBehindModals />
-        {children}
-      </div>
-    );
-  }
-}
-
-export default class RoutedApp extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Router history={hashHistory}>
-          <Route component={App}>
-            <Route path="/" component={ChainedModals}>
-              <Route path="/name" component={ModalName} />
-              <Route path="/phone" component={ModalPhone} />
-              <Route path="/check" component={ModalCheck} />
-              <IndexRedirect to="/name" />
-            </Route>
-            <Route path="/done" />
+const RoutedApp = () => {
+  return (
+    <Provider store={store}>
+      <Router history={hashHistory}>
+        <Route component={App}>
+          <Route path="/" component={ChainedModals}>
+            <Route path="/name" component={ModalName} />
+            <Route path="/phone" component={ModalPhone} />
+            <Route path="/check" component={ModalDoubleCheck} />
+            <IndexRedirect to="/name" />
           </Route>
-        </Router>
-      </Provider>
-    );
-  }
-}
+          <Route path="/done" />
+        </Route>
+      </Router>
+    </Provider>
+  );
+};
+
+const App = (props) => {
+  const { children } = props;
+  return (
+    <div>
+      <PageBehindModals />
+      {children}
+    </div>
+  );
+};
+
+export default RoutedApp;

@@ -9,7 +9,7 @@ import * as actions from './actions';
 const SHOULD_SHOW_MAP = {
   '/name': alwaysShow,
   '/phone': alwaysShow,
-  '/check': shouldShowCheck,
+  '/check': shouldShowDoubleCheck,
   '/done': alwaysShow
 };
 
@@ -37,16 +37,16 @@ function *alwaysShow() {
   return true;
 }
 
-function *shouldShowCheck() {
+function *shouldShowDoubleCheck() {
   const { formData } = yield select();
 
-  yield put(actions.callCheck());
+  yield put(actions.callDoubleCheck());
   try {
     yield call(request, '/api/check', formData);
-    yield put(actions.callCheckSucceeded());
+    yield put(actions.callDoubleCheckSucceeded());
     return false;
-  } catch (e) {
-    yield put(actions.callCheckFailed());
+  } catch (error) {
+    yield put(actions.callDoubleCheckFailed(error));
     return true;
   }
 }
@@ -55,6 +55,7 @@ function *gotoDone() {
   hashHistory.push('/done');
 }
 
+// Note: exported for testing only
 export function *storeName(action) {
   const { name } = action;
 

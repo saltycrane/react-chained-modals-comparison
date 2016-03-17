@@ -17,12 +17,12 @@ export function request(url, value) {
 
         case '/api/check':
           const { phone } = value;
-          const isValid = phone && phone.replace(/\D/g, '').length === 10
+          const isValid = (phone === '1234567890')
 
           if (isValid) {
             resolve();
           } else {
-            reject('Check failed.');
+            reject('Phone must be exactly 1234567890');
           }
           break;
 

@@ -1,9 +1,10 @@
 import React from 'react';
+import { hashHistory } from 'react-router';
 import { Modal, Button } from 'react-bootstrap';
 
 
 const ModalDoubleCheck = (props) => {
-  const { step, gotoNext, ...rest } = props;
+  const { step, errorMsg, ...rest } = props;
 
   return (
     <Modal {...rest}>
@@ -11,12 +12,13 @@ const ModalDoubleCheck = (props) => {
         <Modal.Title>Step {step} - Double Check</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <p>ERROR: { errorMsg }</p>
       </Modal.Body>
       <Modal.Footer>
-        <Button bsStyle="primary" onClick={gotoNext}>Next</Button>
+        <Button bsStyle="primary" onClick={hashHistory.goBack}>Back</Button>
       </Modal.Footer>
     </Modal>
   );
-}
+};
 
 export default ModalDoubleCheck;

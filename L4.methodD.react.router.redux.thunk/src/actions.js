@@ -73,9 +73,10 @@ function _callDoubleCheckSucceeded() {
   };
 }
 
-function _callDoubleCheckFailed() {
+function _callDoubleCheckFailed(errorMsg) {
   return {
-    type: CALL_DOUBLE_CHECK_FAILED
+    type: CALL_DOUBLE_CHECK_FAILED,
+    errorMsg: errorMsg
   };
 }
 
@@ -127,8 +128,8 @@ export function shouldShowDoubleCheck(dispatch, getState) {
         dispatch(_callDoubleCheckSucceeded());
         reject('double check view is not required');
       })
-      .catch(() => {
-        dispatch(_callDoubleCheckFailed());
+      .catch((error) => {
+        dispatch(_callDoubleCheckFailed(error));
         resolve('double check view is required due to failed validation');
       });
   });

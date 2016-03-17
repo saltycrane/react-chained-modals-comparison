@@ -6,9 +6,9 @@ import {
   STORE_PHONE_REQUESTED,
   STORE_PHONE_SUCCEEDED,
   STORE_PHONE_FAILED,
-  CALL_CHECK_REQUESTED,
-  CALL_CHECK_SUCCEEDED,
-  CALL_CHECK_FAILED
+  CALL_DOUBLE_CHECK_REQUESTED,
+  CALL_DOUBLE_CHECK_SUCCEEDED,
+  CALL_DOUBLE_CHECK_FAILED
 } from './actions';
 
 
@@ -64,7 +64,7 @@ function _sequencing(state, action) {
         apiName: 'phone'
       };
 
-    case CALL_CHECK_REQUESTED:
+    case CALL_DOUBLE_CHECK_REQUESTED:
       return {
         ...state,
         requestStatus: 'REQUESTING',
@@ -74,7 +74,7 @@ function _sequencing(state, action) {
 
     case STORE_NAME_SUCCEEDED:
     case STORE_PHONE_SUCCEEDED:
-    case CALL_CHECK_SUCCEEDED:
+    case CALL_DOUBLE_CHECK_SUCCEEDED:
       return {
         ...state,
         requestStatus: 'SUCCEEDED',
@@ -83,7 +83,7 @@ function _sequencing(state, action) {
 
     case STORE_NAME_FAILED:
     case STORE_PHONE_FAILED:
-    case CALL_CHECK_FAILED:
+    case CALL_DOUBLE_CHECK_FAILED:
       return {
         ...state,
         requestStatus: 'FAILED',

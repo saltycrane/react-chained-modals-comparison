@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 
 import ModalName from '../components/ModalName';
 import ModalPhone from '../components/ModalPhone';
-import ModalCheck from '../components/ModalCheck';
+import ModalDoubleCheck from '../components/ModalDoubleCheck';
 import PageBehindModals from '../components/PageBehindModals';
 import { routeChanged } from '../actions';
 import reducer from '../reducers';
@@ -31,7 +31,7 @@ const RoutedApp = () => (
         <Route path="/" component={ChainedModals}>
           <Route path="/name" component={ModalName} />
           <Route path="/phone" component={ModalPhone} />
-          <Route path="/check" component={ModalCheck} />
+          <Route path="/check" component={ModalDoubleCheck} />
           <IndexRedirect to="/name" />
         </Route>
         <Route path="/done" />
@@ -42,7 +42,6 @@ const RoutedApp = () => (
 
 const App = (props) => {
   const { children } = props;
-
   return (
     <div>
       <PageBehindModals />
