@@ -78,8 +78,7 @@ function _sequencing(state, action) {
       return {
         ...state,
         requestStatus: 'SUCCEEDED',
-        errorMsg: null,
-        apiName: null
+        errorMsg: null
       };
 
     case STORE_NAME_FAILED:
@@ -88,8 +87,7 @@ function _sequencing(state, action) {
       return {
         ...state,
         requestStatus: 'FAILED',
-        errorMsg: action.errorMsg,
-        apiName: null
+        errorMsg: action.errorMsg
       };
 
     default:

@@ -5,13 +5,9 @@ import { expect } from 'chai';
 import {
   ROUTE_CHANGED,
   STORE_NAME_REQUESTED,
-  STORE_NAME_SUCCEEDED,
   STORE_NAME_FAILED,
-  STORE_PHONE_REQUESTED,
-  STORE_PHONE_SUCCEEDED,
   routeChanged,
-  storeName,
-  storePhone
+  storeName
 } from '../src/actions';
 
 

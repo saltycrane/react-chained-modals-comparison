@@ -6,6 +6,8 @@ import { request } from './request-simulator';
 import * as actions from './actions';
 
 
+// Note: some functions are exported for testing purposes only
+
 const SHOULD_SHOW_MAP = {
   '/name': alwaysShow,
   '/phone': alwaysShow,
@@ -37,7 +39,7 @@ function *alwaysShow() {
   return true;
 }
 
-function *shouldShowDoubleCheck() {
+export function *shouldShowDoubleCheck() {
   const { formData } = yield select();
 
   yield put(actions.callDoubleCheck());
@@ -55,7 +57,6 @@ function *gotoDone() {
   hashHistory.push('/done');
 }
 
-// Note: exported for testing only
 export function *storeName(action) {
   const { name } = action;
 
