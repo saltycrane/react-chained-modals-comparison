@@ -1,6 +1,6 @@
 import 'babel-polyfill';  // for async+await
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Router, Route, IndexRedirect, hashHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -40,8 +40,7 @@ const RoutedApp = () => {
   );
 };
 
-const App = (props) => {
-  const { children } = props;
+const App = ({ children }) => {
   return (
     <div>
       <PageBehindModals />

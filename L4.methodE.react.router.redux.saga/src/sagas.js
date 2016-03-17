@@ -68,7 +68,7 @@ export function *storeName(action) {
   }
 }
 
-function *storePhone(action) {
+export function *storePhone(action) {
   const { phone } = action;
 
   try {

@@ -2,9 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 
-const ModalPhone = (props) => {
-  const { onClickNext, step, ...rest } = props;
-
+const ModalPhone = ({ onClickNext, step, ...rest }) => {
   return (
     <Modal {...rest}>
       <Modal.Header closeButton>

@@ -3,9 +3,7 @@ import { hashHistory } from 'react-router';
 import { Modal, Button } from 'react-bootstrap';
 
 
-const ModalDoubleCheck = (props) => {
-  const { step, errorMsg, ...rest } = props;
-
+const ModalDoubleCheck = ({ step, errorMsg, ...rest }) => {
   return (
     <Modal {...rest}>
       <Modal.Header closeButton>

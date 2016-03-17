@@ -2,9 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 
-const ModalName = (props) => {
-  const { onClickNext, step, ...rest } = props;
-
+const ModalName = ({ onClickNext, step, ...rest }) => {
   return (
     <Modal {...rest}>
       <Modal.Header closeButton>

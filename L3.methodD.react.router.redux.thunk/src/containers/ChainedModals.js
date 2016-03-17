@@ -10,20 +10,8 @@ import {
 import ModalBackdrop from '../components/ModalBackdrop';
 
 
-const ChainedModals = (props) => {
-  const { children, currIndex, gotoDone, ...rest } = props;
-
-  // Clone the child view element so we can pass props to it.
-  // Taken from this react-router example:
-  // https://github.com/reactjs/react-router/blob/v2.0.0/examples/passing-props-to-children/app.js
-  const modalElement = children && React.cloneElement(children, {
-    step: currIndex + 1,
-    backdrop: false,
-    show: true,
-    onHide: gotoDone,
-    ...rest
-  });
-
+const ChainedModals = ({ children, ...rest }) => {
+  const modalElement = children && React.cloneElement(children, rest);
   return (
     <div>
       <ModalBackdrop />
@@ -34,13 +22,20 @@ const ChainedModals = (props) => {
 
 export default connect(
   function mapStateToProps(state) {
-    const { currIndex, modalList, requestStatus, errorMsg, formData } = state;
-    return { currIndex, modalList, requestStatus, errorMsg, formData };
+    const { currIndex, requestStatus, errorMsg, formData } = state;
+    return {
+      backdrop: false,
+      show: true,
+      step: currIndex + 1,
+      requestStatus,
+      errorMsg,
+      formData
+    };
   },
   function mapDispatchToProps(dispatch) {
     return {
       gotoNext: (...args) => dispatch(gotoNext(...args)),
-      gotoDone: (...args) => dispatch(gotoDone(...args)),
+      onHide: (...args) => dispatch(gotoDone(...args)),
       storeName: (...args) => dispatch(storeName(...args)),
       storePhone: (...args) => dispatch(storePhone(...args))
     }

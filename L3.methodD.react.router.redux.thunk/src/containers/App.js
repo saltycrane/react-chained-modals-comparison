@@ -36,8 +36,7 @@ const RoutedApp = () => {
   );
 };
 
-const App = (props) => {
-  const { children } = props;
+const App = ({ children }) => {
   return (
     <div>
       <PageBehindModals />
