@@ -37,6 +37,7 @@ describe('reducers', () => {
   it('should handle STORE_NAME_REQUESTED', () => {
     const initial = {
       errorMsg: 'something that gets cleared',
+      apiName: null,
       requestStatus: null,
       formData: null
     };
@@ -46,6 +47,7 @@ describe('reducers', () => {
     const actual = reducer(initial, action);
     const expected = {
       errorMsg: null,
+      apiName: 'name',
       requestStatus: 'REQUESTING',
       formData: null
     };
@@ -95,6 +97,7 @@ describe('reducers', () => {
   it('should handle STORE_PHONE_REQUESTED', () => {
     const initial = {
       errorMsg: 'something that gets cleared',
+      apiName: null,
       requestStatus: null,
       formData: null
     };
@@ -104,6 +107,7 @@ describe('reducers', () => {
     const actual = reducer(initial, action);
     const expected = {
       errorMsg: null,
+      apiName: 'phone',
       requestStatus: 'REQUESTING',
       formData: null
     };
