@@ -1,4 +1,3 @@
-var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.config');
@@ -14,10 +13,6 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.use('/public', express.static('public'));
-
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
-});
 
 app.listen(3000, function (err) {
   if (err) {
