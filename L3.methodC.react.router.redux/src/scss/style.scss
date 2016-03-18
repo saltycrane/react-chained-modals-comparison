@@ -1,9 +1,0 @@
-@import "bootstrap";
-
-.modal {
-  &.fade .modal-dialog {
-    @include translate3d(50%, 0, 0);
-    @include transition-transform(0.3s ease-out);
-  }
-  &.in .modal-dialog { @include translate3d(0, 0, 0) }
-}
