@@ -13,18 +13,15 @@ Methods compared:
  - Method D: React + React Router + Redux + [Redux Thunk](https://github.com/gaearon/redux-thunk)
  - Method E: React + React Router + Redux + [Redux Saga](https://github.com/yelouafi/redux-saga)
  - Method F: React + React Router + Redux + Redux Thunk + Async/Await (ES2017)
+ - Method G: React + React Router + Redux + [Redux Loop](https://github.com/raisemarketplace/redux-loop)
 
-Interesting, but not covered:
-
- - [Redux Loop](https://github.com/raisemarketplace/redux-loop)
- 
 ## Demo
 
 http://saltycrane.github.io/react-chained-modals-comparison
  
 ## Usage
 
-    $ cd L4.methodF.react.router.redux.thunk.aa
+    $ cd L4.methodE.react.router.redux.saga
     $ npm install
     $ npm start
     $ # goto http://localhost:3000 in the browser
@@ -92,6 +89,8 @@ http://saltycrane.github.io/react-chained-modals-comparison
  - async/await syntax is nicer than generator syntax used with redux-saga
  - redux-saga is more testable and can handle more complex workflows
  - requires ES2017 (stage 3)
+
+#### [Method G: React + React Router + Redux + Redux Loop](/L4.methodG.react.router.redux.loop)
 
 ## See also
 
