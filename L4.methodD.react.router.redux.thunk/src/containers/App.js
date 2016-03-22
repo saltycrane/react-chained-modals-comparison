@@ -36,13 +36,11 @@ const RoutedApp = () => (
   </Provider>
 );
 
-const App = ({ children }) => {
-  return (
-    <div>
-      <PageBehindModals />
-      {children}
-    </div>
-  );
-}
+const App = ({ children }) => (
+  <div>
+    <PageBehindModals />
+    {children}
+  </div>
+);
 
 export default RoutedApp;

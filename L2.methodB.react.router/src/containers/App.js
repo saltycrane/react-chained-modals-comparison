@@ -21,14 +21,12 @@ const RoutedApp = () => (
   </Router>
 );
 
-const App = ({ children }) => {
-  return (
-    <div>
-      <PageBehindModals />
-      {children}
-    </div>
-  );
-};
+const App = ({ children }) => (
+  <div>
+    <PageBehindModals />
+    {children}
+  </div>
+);
 
 const partial = (Comp, props) => (fprops) => <Comp {...props} {...fprops} />;
 
