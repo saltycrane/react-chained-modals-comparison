@@ -28,18 +28,13 @@ function modalsReducer(state, action) {
       const { skip } = action;
       const incr = skip ? 2 : 1;
       const nextRoute = modalList[currIndex + incr];
+      const shouldShowFn = SHOULD_SHOW_MAP[nextRoute];
       return loop(
         {
           ...state,
           nextRoute
         },
-        Effects.promise(_maybeGotoRoute, nextRoute)
-      );
-    }
-    case actions.CHECK_SHOULD_SHOW: {
-      return loop(
-        state,
-        Effects.promise(action.shouldShowFn)
+        Effects.promise(shouldShowFn)
       );
     }
     case actions.GOTO_NEXT: {
@@ -146,33 +141,34 @@ function modalsReducer(state, action) {
   }
 }
 
-function alwaysShow() {
+// NOTE: some of these functions are exported for testing only
+export function alwaysShow() {
   return Promise.resolve(actions.gotoNext());
 }
 
-function shouldShowDoubleCheck() {
+export function shouldShowDoubleCheck() {
   return Promise.resolve(actions.callDoubleCheck());
 }
 
-function _maybeGotoRoute(nextRoute) {
+export function _maybeGotoRoute(nextRoute) {
   return new Promise((resolve) => {
     const shouldShowFn = SHOULD_SHOW_MAP[nextRoute];
     resolve(actions.checkShouldShow(shouldShowFn));
   });
 }
 
-function _gotoRoute(nextRoute) {
+export function _gotoRoute(nextRoute) {
   return new Promise((resolve) => {
     hashHistory.push(nextRoute);
     resolve(actions.dummyAction());
   });
 }
 
-function _gotoDone() {
+export function _gotoDone() {
   return _gotoRoute('/done');
 }
 
-function _callDoubleCheck(formData) {
+export function _callDoubleCheck(formData) {
   return request('/api/check', formData)
     .then(() => {
       return actions.callDoubleCheckSucceeded();
@@ -182,7 +178,7 @@ function _callDoubleCheck(formData) {
     });
 }
 
-function _storeName(name) {
+export function _storeName(name) {
   return request('/api/name', name)
     .then(() => {
       return actions.storeNameSucceeded(name);
@@ -192,7 +188,7 @@ function _storeName(name) {
     });
 }
 
-function _storePhone(phone) {
+export function _storePhone(phone) {
   return request('/api/phone', phone)
     .then(() => {
       return actions.storePhoneSucceeded(phone);

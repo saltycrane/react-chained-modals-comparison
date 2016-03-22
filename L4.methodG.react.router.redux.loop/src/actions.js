@@ -1,6 +1,5 @@
 export const ROUTE_CHANGED = 'ROUTE_CHANGED';
 export const MAYBE_GOTO_NEXT = 'MAYBE_GOTO_NEXT';
-export const CHECK_SHOULD_SHOW = 'CHECK_SHOULD_SHOW';
 export const GOTO_NEXT = 'GOTO_NEXT';
 export const GOTO_DONE = 'GOTO_DONE';
 export const STORE_NAME_REQUESTED = 'STORE_NAME_REQUESTED';
@@ -32,13 +31,6 @@ export function skipNext() {
   return {
     type: MAYBE_GOTO_NEXT,
     skip: true
-  };
-}
-
-export function checkShouldShow(shouldShowFn) {
-  return {
-    type: CHECK_SHOULD_SHOW,
-    shouldShowFn: shouldShowFn
   };
 }
 

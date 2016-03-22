@@ -21,6 +21,7 @@ const initialState = {
     '/done'
   ],
   currIndex: null,
+  nextRoute: null,
   errorMsg: null,
   apiName: null,
   requestStatus: null,

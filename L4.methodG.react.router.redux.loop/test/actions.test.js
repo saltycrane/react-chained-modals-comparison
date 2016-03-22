@@ -1,87 +1,156 @@
-import thunk from 'redux-thunk';
-import configureMockStore from 'redux-mock-store';
 import { expect } from 'chai';
 
-import {
-  ROUTE_CHANGED,
-  STORE_NAME_REQUESTED,
-  STORE_NAME_FAILED,
-  routeChanged,
-  storeName
-} from '../src/actions';
+import * as actions from '../src/actions';
 
-
-const mockStore = configureMockStore([thunk]);
 
 describe('actions', () => {
   describe('routeChanged', () => {
     it('returns an action object', () => {
-      const actual = routeChanged('location object here');
+      const actual = actions.routeChanged('location object here');
       const expected = {
-        type: ROUTE_CHANGED,
+        type: actions.ROUTE_CHANGED,
         location: 'location object here'
       };
       expect(actual).to.eql(expected);
     });
   });
 
-  // normally the request would be mocked with a library such as nock
-  // but I am just simulating the request
-  describe('storeName', () => {
-    // // dispatches gotoNext() which I don't know how to test
-    // it('dispatches actions on success', (done) => {
-    //   const store = mockStore({});
-    //   store.dispatch(storeName('Winter McGee'))
-    //     .then(() => {
-    //       const actualActions = store.getActions();
-    //       const expectedActions = [
-    //         {type: STORE_NAME_REQUESTED},
-    //         {type: STORE_NAME_SUCCEEDED, name: 'Winter McGee'}
-    //       ];
-    //       expect(actualActions).to.eql(expectedActions);
-    //       done();
-    //     })
-    //     .catch((e) => {
-    //       console.error(e.stack);
-    //     });
-    // });
-
-    it('dispatches actions on failure', (done) => {
-      const store = mockStore({});
-      store.dispatch(storeName('Winter'))
-        .then(() => {
-          const actualActions = store.getActions();
-          const expectedActions = [
-            {type: STORE_NAME_REQUESTED},
-            {type: STORE_NAME_FAILED, errorMsg: 'Specify first and last name.'}
-          ];
-          expect(actualActions).to.eql(expectedActions);
-          done();
-        })
-        .catch((e) => {
-          console.error(e.stack);
-        });
+  describe('maybeGotoNext', () => {
+    it('returns an action object', () => {
+      const actual = actions.maybeGotoNext();
+      const expected = {
+        type: actions.MAYBE_GOTO_NEXT,
+        skip: false
+      };
+      expect(actual).to.eql(expected);
     });
   });
 
-  // // dispatches gotoNext() which I don't know how to test
-  // describe('storePhone', () => {
-  //   it('dispatches actions on success', (done) => {
-  //     const store = mockStore({});
-  //     store.dispatch(storePhone('234'))
-  //       .then(() => {
-  //         const actualActions = store.getActions();
-  //         const expectedActions = [
-  //           {type: STORE_PHONE_REQUESTED},
-  //           {type: STORE_PHONE_SUCCEEDED, phone: '234'}
-  //         ];
-  //         expect(actualActions).to.eql(expectedActions);
-  //         done();
-  //       })
-  //       .catch((e) => {
-  //         console.error(e.stack);
-  //       });
-  //   });
-  // });
+  describe('skipNext', () => {
+    it('returns an action object', () => {
+      const actual = actions.skipNext();
+      const expected = {
+        type: actions.MAYBE_GOTO_NEXT,
+        skip: true
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
 
+  describe('gotoNext', () => {
+    it('returns an action object', () => {
+      const actual = actions.gotoNext();
+      const expected = {
+        type: actions.GOTO_NEXT
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
+
+  describe('gotoDone', () => {
+    it('returns an action object', () => {
+      const actual = actions.gotoDone();
+      const expected = {
+        type: actions.GOTO_DONE
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
+
+  describe('callDoubleCheck', () => {
+    it('returns an action object', () => {
+      const actual = actions.callDoubleCheck();
+      const expected = {
+        type: actions.CALL_DOUBLE_CHECK_REQUESTED
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
+
+  describe('callDoubleCheckFailed', () => {
+    it('returns an action object', () => {
+      const actual = actions.callDoubleCheckFailed('environmental factors');
+      const expected = {
+        type: actions.CALL_DOUBLE_CHECK_FAILED,
+        errorMsg: 'environmental factors'
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
+
+  describe('storeName', () => {
+    it('returns an action object', () => {
+      const actual = actions.storeName('Bonnie');
+      const expected = {
+        type: actions.STORE_NAME_REQUESTED,
+        name: 'Bonnie'
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
+
+  describe('storeNameSucceeded', () => {
+    it('returns an action object', () => {
+      const actual = actions.storeNameSucceeded('Bonnie');
+      const expected = {
+        type: actions.STORE_NAME_SUCCEEDED,
+        name: 'Bonnie'
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
+
+  describe('storeNameFailed', () => {
+    it('returns an action object', () => {
+      const actual = actions.storeNameFailed('overloaded');
+      const expected = {
+        type: actions.STORE_NAME_FAILED,
+        errorMsg: 'overloaded'
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
+
+  describe('storePhone', () => {
+    it('returns an action object', () => {
+      const actual = actions.storePhone('234')
+      const expected = {
+        type: actions.STORE_PHONE_REQUESTED,
+        phone: '234'
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
+
+  describe('storePhoneSucceeded', () => {
+    it('returns an action object', () => {
+      const actual = actions.storePhoneSucceeded('234')
+      const expected = {
+        type: actions.STORE_PHONE_SUCCEEDED,
+        phone: '234'
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
+
+  describe('storePhoneFailed', () => {
+    it('returns an action object', () => {
+      const actual = actions.storePhoneFailed('took too long');
+      const expected = {
+        type: actions.STORE_PHONE_FAILED,
+        errorMsg: 'took too long'
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
+
+  describe('dummyAction', () => {
+    it('returns an action object', () => {
+      const actual = actions.dummyAction();
+      const expected = {
+        type: actions.DUMMY_ACTION
+      };
+      expect(actual).to.eql(expected);
+    });
+  });
 });
