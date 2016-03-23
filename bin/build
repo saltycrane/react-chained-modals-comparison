@@ -33,7 +33,7 @@ def main():
             continue
         if path.startswith('.'):
             continue
-        if not os.path.exists('./%s/dist' % path):
+        if not os.path.exists('%s/package.json' % path):
             continue
 
         # build

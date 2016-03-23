@@ -11,10 +11,12 @@ export const CALL_DOUBLE_CHECK_REQUESTED = 'CALL_DOUBLE_CHECK_REQUESTED';
 export const CALL_DOUBLE_CHECK_SUCCEEDED = 'CALL_DOUBLE_CHECK_SUCCEEDED';
 export const CALL_DOUBLE_CHECK_FAILED = 'CALL_DOUBLE_CHECK_FAILED';
 
-export function storeName(name) {
+export function storeName(name, onSuccess) {
   return {
     type: STORE_NAME_REQUESTED,
-    name: name
+    apiName: 'name',
+    name: name,
+    onSuccess: onSuccess
   };
 }
 
@@ -32,17 +34,20 @@ export function storeNameFailed(errorMsg) {
   };
 }
 
-export function storePhone(phone) {
+export function storePhone(phone, onSuccess) {
   return {
     type: STORE_PHONE_REQUESTED,
-    phone: phone
+    apiName: 'phone',
+    phone: phone,
+    onSuccess: onSuccess
   };
 }
 
 export function storePhoneSucceeded(phone) {
   return {
     type: STORE_PHONE_SUCCEEDED,
-    phone: phone
+    phone: phone,
+    apiName: 'phone'
   };
 }
 
@@ -55,7 +60,8 @@ export function storePhoneFailed(errorMsg) {
 
 export function callDoubleCheck() {
   return {
-    type: CALL_DOUBLE_CHECK_REQUESTED
+    type: CALL_DOUBLE_CHECK_REQUESTED,
+    apiName: 'check'
   };
 }
 

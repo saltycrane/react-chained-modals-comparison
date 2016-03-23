@@ -12,24 +12,7 @@ import {
 } from './actions';
 
 
-const initialState = {
-  modalList: [
-    '/name',
-    '/phone',
-    '/check',
-    '/done'
-  ],
-  currIndex: null,
-  errorMsg: null,
-  apiName: null,
-  requestStatus: null,
-  formData: {
-    name: 'Backend',
-    phone: null
-  }
-};
-
-function modalsReducer(state = initialState, action) {
+function modalsReducer(state, action) {
   return {
     ..._sequencing(state, action),
     formData: _formData(state.formData, action)
@@ -38,58 +21,43 @@ function modalsReducer(state = initialState, action) {
 
 function _sequencing(state, action) {
   switch (action.type) {
-    case ROUTE_CHANGED:
+    case ROUTE_CHANGED: {
       const { location: { pathname } } = action;
       const index = state.modalList.findIndex(path => path === pathname);
-
       return {
         ...state,
-        requestStatus: null,
+        isRequesting: false,
         currIndex: index
       };
-
+    }
     case STORE_NAME_REQUESTED:
-      return {
-        ...state,
-        requestStatus: 'REQUESTING',
-        errorMsg: null,
-        apiName: 'name'
-      };
-
     case STORE_PHONE_REQUESTED:
+    case CALL_DOUBLE_CHECK_REQUESTED: {
       return {
         ...state,
-        requestStatus: 'REQUESTING',
+        isRequesting: true,
         errorMsg: null,
-        apiName: 'phone'
+        apiName: action.apiName
       };
-
-    case CALL_DOUBLE_CHECK_REQUESTED:
-      return {
-        ...state,
-        requestStatus: 'REQUESTING',
-        errorMsg: null,
-        apiName: 'check'
-      };
-
+    }
     case STORE_NAME_SUCCEEDED:
     case STORE_PHONE_SUCCEEDED:
-    case CALL_DOUBLE_CHECK_SUCCEEDED:
+    case CALL_DOUBLE_CHECK_SUCCEEDED: {
       return {
         ...state,
-        requestStatus: 'SUCCEEDED',
+        isRequesting: false,
         errorMsg: null
       };
-
+    }
     case STORE_NAME_FAILED:
     case STORE_PHONE_FAILED:
-    case CALL_DOUBLE_CHECK_FAILED:
+    case CALL_DOUBLE_CHECK_FAILED: {
       return {
         ...state,
-        requestStatus: 'FAILED',
+        isRequesting: false,
         errorMsg: action.errorMsg
       };
-
+    }
     default:
       return state;
   }

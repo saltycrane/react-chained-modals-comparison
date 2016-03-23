@@ -32,12 +32,13 @@ export function gotoDone() {
   }
 }
 
-export function storeName(name) {
+export function storeName(name, onSuccess) {
   return dispatch => {
     dispatch(_storeNameRequested());
     return request('/api/name', name)
       .then(() => {
         dispatch(_storeNameSucceeded(name));
+        onSuccess();
       })
       .catch(error => {
         dispatch(_storeNameFailed(error));
@@ -48,12 +49,13 @@ export function storeName(name) {
   }
 }
 
-export function storePhone(phone) {
+export function storePhone(phone, onSuccess) {
   return dispatch => {
     dispatch(_storePhoneRequested());
     return request('/api/phone', phone)
       .then(() => {
         dispatch(_storePhoneSucceeded(phone));
+        onSuccess();
       })
       .catch(error => {
         dispatch(_storePhoneFailed(error));

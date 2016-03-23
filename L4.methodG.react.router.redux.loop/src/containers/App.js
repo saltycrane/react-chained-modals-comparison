@@ -22,11 +22,11 @@ const initialState = {
   ],
   currIndex: null,
   nextRoute: null,
+  isRequesting: false,
   errorMsg: null,
   apiName: null,
-  requestStatus: null,
   formData: {
-    name: 'Backend',
+    name: 'Servur',
     phone: null
   }
 };

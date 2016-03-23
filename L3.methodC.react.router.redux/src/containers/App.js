@@ -11,7 +11,20 @@ import reducer from '../reducers';
 import ChainedModals from './ChainedModals';
 
 
-const store = createStore(reducer);
+const initialState = {
+  modalList: [
+    '/name',
+    '/phone',
+    '/done'
+  ],
+  currIndex: null,
+  formData: {
+    name: 'Servur',
+    phone: null
+  }
+};
+
+const store = createStore(reducer, initialState);
 
 // Dispatch an action when the route changes.
 // from https://github.com/reactjs/react-router-redux/issues/257

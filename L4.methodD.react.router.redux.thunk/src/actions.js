@@ -21,65 +21,6 @@ export const CALL_DOUBLE_CHECK_REQUESTED = 'CALL_DOUBLE_CHECK_REQUESTED';
 export const CALL_DOUBLE_CHECK_SUCCEEDED = 'CALL_DOUBLE_CHECK_SUCCEEDED';
 export const CALL_DOUBLE_CHECK_FAILED = 'CALL_DOUBLE_CHECK_FAILED';
 
-function _storeNameRequested() {
-  return {
-    type: STORE_NAME_REQUESTED
-  };
-}
-
-function _storeNameSucceeded(name) {
-  return {
-    type: STORE_NAME_SUCCEEDED,
-    name: name
-  };
-}
-
-function _storeNameFailed(errorMsg) {
-  return {
-    type: STORE_NAME_FAILED,
-    errorMsg: errorMsg
-  };
-}
-
-function _storePhoneRequested() {
-  return {
-    type: STORE_PHONE_REQUESTED
-  };
-}
-
-function _storePhoneSucceeded(phone) {
-  return {
-    type: STORE_PHONE_SUCCEEDED,
-    phone: phone
-  };
-}
-
-function _storePhoneFailed(errorMsg) {
-  return {
-    type: STORE_PHONE_FAILED,
-    errorMsg: errorMsg
-  };
-}
-
-function _callDoubleCheckRequested() {
-  return {
-    type: CALL_DOUBLE_CHECK_REQUESTED
-  };
-}
-
-function _callDoubleCheckSucceeded() {
-  return {
-    type: CALL_DOUBLE_CHECK_SUCCEEDED
-  };
-}
-
-function _callDoubleCheckFailed(errorMsg) {
-  return {
-    type: CALL_DOUBLE_CHECK_FAILED,
-    errorMsg: errorMsg
-  };
-}
-
 export function routeChanged(location) {
   return {
     type: ROUTE_CHANGED,
@@ -141,13 +82,13 @@ export function gotoDone() {
   }
 }
 
-export function storeName(name) {
+export function storeName(name, onSuccess) {
   return dispatch => {
     dispatch(_storeNameRequested());
     return request('/api/name', name)
       .then(() => {
         dispatch(_storeNameSucceeded(name));
-        dispatch(gotoNext());
+        onSuccess();
       })
       .catch(error => {
         dispatch(_storeNameFailed(error));
@@ -155,17 +96,79 @@ export function storeName(name) {
   }
 }
 
-export function storePhone(phone) {
+export function storePhone(phone, onSuccess) {
   return dispatch => {
 
     dispatch(_storePhoneRequested());
     return request('/api/phone', phone)
       .then(() => {
         dispatch(_storePhoneSucceeded(phone));
-        dispatch(gotoNext());
+        onSuccess();
       })
       .catch(error => {
         dispatch(_storePhoneFailed(error));
       });
   }
+}
+
+function _storeNameRequested() {
+  return {
+    type: STORE_NAME_REQUESTED,
+    apiName: 'name'
+  };
+}
+
+function _storeNameSucceeded(name) {
+  return {
+    type: STORE_NAME_SUCCEEDED,
+    name: name
+  };
+}
+
+function _storeNameFailed(errorMsg) {
+  return {
+    type: STORE_NAME_FAILED,
+    errorMsg: errorMsg
+  };
+}
+
+function _storePhoneRequested() {
+  return {
+    type: STORE_PHONE_REQUESTED,
+    apiName: 'phone'
+  };
+}
+
+function _storePhoneSucceeded(phone) {
+  return {
+    type: STORE_PHONE_SUCCEEDED,
+    phone: phone
+  };
+}
+
+function _storePhoneFailed(errorMsg) {
+  return {
+    type: STORE_PHONE_FAILED,
+    errorMsg: errorMsg
+  };
+}
+
+function _callDoubleCheckRequested() {
+  return {
+    type: CALL_DOUBLE_CHECK_REQUESTED,
+    apiName: 'check'
+  };
+}
+
+function _callDoubleCheckSucceeded() {
+  return {
+    type: CALL_DOUBLE_CHECK_SUCCEEDED
+  };
+}
+
+function _callDoubleCheckFailed(errorMsg) {
+  return {
+    type: CALL_DOUBLE_CHECK_FAILED,
+    errorMsg: errorMsg
+  };
 }

@@ -22,12 +22,12 @@ const ChainedModals = ({ children, ...rest }) => {
 
 export default connect(
   function mapStateToProps(state) {
-    const { currIndex, requestStatus, apiName, errorMsg, formData } = state;
+    const { currIndex, isRequesting, apiName, errorMsg, formData } = state;
     return {
       backdrop: false,
       show: true,
       step: currIndex + 1,
-      requestStatus,
+      isRequesting,
       apiName,
       errorMsg,
       formData

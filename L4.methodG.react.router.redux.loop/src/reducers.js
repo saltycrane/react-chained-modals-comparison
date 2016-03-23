@@ -19,7 +19,7 @@ function modalsReducer(state, action) {
       const index = state.modalList.findIndex(path => path === pathname);
       return {
         ...state,
-        requestStatus: null,
+        isRequesting: false,
         currIndex: index
       };
     }
@@ -49,7 +49,7 @@ function modalsReducer(state, action) {
       return loop(
         {
           ...state,
-          requestStatus: 'REQUESTING',
+          isRequesting: true,
           errorMsg: null,
           apiName: 'check'
         },
@@ -66,7 +66,7 @@ function modalsReducer(state, action) {
       return loop(
         {
           ...state,
-          requestStatus: 'REQUESTING',
+          isRequesting: true,
           errorMsg: null,
           apiName: 'name'
         },
@@ -77,7 +77,7 @@ function modalsReducer(state, action) {
       return loop(
         {
           ...state,
-          requestStatus: 'REQUESTING',
+          isRequesting: true,
           errorMsg: null,
           apiName: 'phone'
         },
@@ -112,7 +112,7 @@ function modalsReducer(state, action) {
       return loop(
         {
           ...state,
-          requestStatus: 'SUCCEEDED',
+          isRequesting: false,
           errorMsg: null
         },
         Effects.constant(actions.skipNext())
@@ -122,7 +122,7 @@ function modalsReducer(state, action) {
       return loop(
         {
           ...state,
-          requestStatus: 'FAILED',
+          isRequesting: false,
           errorMsg: action.errorMsg
         },
         Effects.constant(actions.gotoNext())
@@ -132,7 +132,7 @@ function modalsReducer(state, action) {
     case actions.STORE_PHONE_FAILED: {
       return {
         ...state,
-        requestStatus: 'FAILED',
+        isRequesting: false,
         errorMsg: action.errorMsg
       };
     }

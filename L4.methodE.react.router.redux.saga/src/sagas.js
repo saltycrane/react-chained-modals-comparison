@@ -58,24 +58,24 @@ function *gotoDone() {
 }
 
 export function *storeName(action) {
-  const { name } = action;
+  const { name, onSuccess } = action;
 
   try {
     yield call(request, '/api/name', name);
     yield put(actions.storeNameSucceeded(name));
-    yield put(actions.gotoNext());
+    yield call(onSuccess);
   } catch (e) {
     yield put(actions.storeNameFailed(e));
   }
 }
 
 export function *storePhone(action) {
-  const { phone } = action;
+  const { phone, onSuccess } = action;
 
   try {
     yield call(request, '/api/phone', phone);
     yield put(actions.storePhoneSucceeded(phone));
-    yield put(actions.gotoNext());
+    yield call(onSuccess);
   } catch (e) {
     yield put(actions.storePhoneFailed(e));
   }

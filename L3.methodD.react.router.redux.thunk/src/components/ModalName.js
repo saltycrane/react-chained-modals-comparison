@@ -5,7 +5,6 @@ import { Modal, Button, Input } from 'react-bootstrap';
 class ModalName extends Component {
   constructor(props) {
     super(props);
-
     const { formData: { name } } = props;
     this.state = {
       name: name || ''
@@ -13,7 +12,7 @@ class ModalName extends Component {
   }
 
   render() {
-    const { step, requestStatus, errorMsg, ...props } = this.props;
+    const { step, isRequesting, errorMsg, ...props } = this.props;
     const { name } = this.state;
 
     return (
@@ -22,13 +21,13 @@ class ModalName extends Component {
           <Modal.Title>Step {step} - Name</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {requestStatus === 'REQUESTING' && <p><em>Making fake ajax request...</em></p>}
-          {errorMsg && <p><em>{errorMsg}</em></p>}
+          {isRequesting && <p><em>Making fake ajax request...</em></p>}
           <Input
             label="Enter your name"
             type="text"
             bsSize="large"
-            {...(requestStatus === 'FAILED' ? {bsStyle: 'error'} : {})}
+            {...(errorMsg ? {bsStyle: 'error'} : {})}
+            help={errorMsg && <em>{errorMsg}</em>}
             value={name}
             onChange={this._handleInputChange}
             ref={(c) => this._input = c}
@@ -41,25 +40,14 @@ class ModalName extends Component {
     );
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { requestStatus, gotoNext } = nextProps;
-
-    if (requestStatus === 'SUCCEEDED') {
-      gotoNext();
-    }
-  }
-
   _handleInputChange = () => {
-    this.setState({
-      name: this._input.getValue()
-    });
+    this.setState({name: this._input.getValue()});
   };
 
   _handleClickNext = () => {
-    const { storeName } = this.props;
+    const { storeName, gotoNext } = this.props;
     const name = this._input.getValue();
-
-    storeName(name);
+    storeName(name, gotoNext);
   };
 }
 

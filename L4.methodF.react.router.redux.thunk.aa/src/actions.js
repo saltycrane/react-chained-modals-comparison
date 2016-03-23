@@ -74,26 +74,26 @@ export function gotoDone() {
   }
 }
 
-export function storeName(name) {
+export function storeName(name, onSuccess) {
   return async dispatch => {
     dispatch(_storeNameRequested());
     try {
       await request('/api/name', name);
       dispatch(_storeNameSucceeded(name));
-      dispatch(gotoNext());
+      onSuccess();
     } catch(error) {
       dispatch(_storeNameFailed(error));
     }
   }
 }
 
-export function storePhone(phone) {
+export function storePhone(phone, onSuccess) {
   return async dispatch => {
     dispatch(_storePhoneRequested());
     try {
       await request('/api/phone', phone);
       dispatch(_storePhoneSucceeded(phone));
-      dispatch(gotoNext());
+      onSuccess();
     } catch(error) {
       dispatch(_storePhoneFailed(error));
     }
@@ -102,7 +102,8 @@ export function storePhone(phone) {
 
 function _storeNameRequested() {
   return {
-    type: STORE_NAME_REQUESTED
+    type: STORE_NAME_REQUESTED,
+    apiName: 'name'
   };
 }
 
@@ -122,7 +123,8 @@ function _storeNameFailed(errorMsg) {
 
 function _storePhoneRequested() {
   return {
-    type: STORE_PHONE_REQUESTED
+    type: STORE_PHONE_REQUESTED,
+    apiName: 'phone'
   };
 }
 
@@ -142,7 +144,8 @@ function _storePhoneFailed(errorMsg) {
 
 function _callDoubleCheckRequested() {
   return {
-    type: CALL_DOUBLE_CHECK_REQUESTED
+    type: CALL_DOUBLE_CHECK_REQUESTED,
+    apiName: 'check'
   };
 }
 

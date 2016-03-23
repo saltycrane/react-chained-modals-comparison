@@ -16,8 +16,25 @@ import saga from '../sagas';
 import ChainedModals from './ChainedModals';
 
 
+const initialState = {
+  modalList: [
+    '/name',
+    '/phone',
+    '/check',
+    '/done'
+  ],
+  currIndex: null,
+  isRequesting: false,
+  errorMsg: null,
+  apiName: null,
+  formData: {
+    name: 'Servur',
+    phone: null
+  }
+};
+
 const sagaMiddleware = createSagaMiddleware(saga);
-const store = createStore(reducer, applyMiddleware(sagaMiddleware));
+const store = createStore(reducer, initialState, applyMiddleware(sagaMiddleware));
 
 // Dispatch an action when the route changes.
 // from https://github.com/reactjs/react-router-redux/issues/257

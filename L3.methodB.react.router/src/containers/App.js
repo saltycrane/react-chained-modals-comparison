@@ -13,7 +13,7 @@ const RoutedApp = () => (
       <Route path="/" component={
         partial(ChainedModals, {
           modalList: ['/name', '/phone', '/done'],
-          formData: {name: 'Backend'}
+          formData: {name: 'Servur'}
         })}>
         <Route path="/name" component={ModalName} />
         <Route path="/phone" component={ModalPhone} />

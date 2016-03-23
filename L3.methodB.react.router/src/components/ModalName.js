@@ -45,9 +45,7 @@ class ModalName extends Component {
   }
 
   _handleInputChange = () => {
-    this.setState({
-      name: this._input.getValue()
-    });
+    this.setState({name: this._input.getValue()});
   };
 
   _handleClickNext = () => {

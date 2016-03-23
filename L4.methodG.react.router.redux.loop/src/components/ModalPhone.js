@@ -5,7 +5,6 @@ import { Modal, Button, Input } from 'react-bootstrap';
 class ModalPhone extends Component {
   constructor(props) {
     super(props);
-
     const { formData: { phone } } = props;
     this.state = {
       phone: phone || ''
@@ -13,7 +12,7 @@ class ModalPhone extends Component {
   }
 
   render() {
-    const { step, requestStatus, apiName, errorMsg, ...props } = this.props;
+    const { step, isRequesting, apiName, errorMsg, ...props } = this.props;
     const { phone } = this.state;
 
     return (
@@ -22,14 +21,14 @@ class ModalPhone extends Component {
           <Modal.Title>Step {step} - Phone Number</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {requestStatus === 'REQUESTING' &&
+          {isRequesting &&
            <p><em>{`Making fake ajax request to ${apiName} api...`}</em></p>}
-          {errorMsg && <p><em>{errorMsg}</em></p>}
           <Input
             label="Enter your phone number"
             type="text"
             bsSize="large"
-            {...(requestStatus === 'FAILED' ? {bsStyle: 'error'} : {})}
+            {...(errorMsg ? {bsStyle: 'error'} : {})}
+            help={errorMsg && <p><em>{errorMsg}</em></p>}
             value={phone}
             onChange={this._handleInputChange}
             ref={(c) => this._input = c}
@@ -43,15 +42,12 @@ class ModalPhone extends Component {
   }
 
   _handleInputChange = () => {
-    this.setState({
-      phone: this._input.getValue()
-    });
+    this.setState({phone: this._input.getValue()});
   };
 
   _handleClickNext = () => {
     const { storePhone } = this.props;
     const phone = this._input.getValue();
-
     storePhone(phone);
   };
 }
