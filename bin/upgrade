@@ -20,12 +20,9 @@ def main():
             continue
 
         os.chdir(path)
+        os.system('rm -rf node_modules')
         os.system('ncu -u')
         os.system('npm install')
-        # if 'redux' in path:
-        #     os.system('pwd')
-        #     os.system('npm uninstall --save-dev redux-mock-store')
-        #     os.system('npm install --save-dev redux-mock-store')
         os.chdir('..')
 
 
