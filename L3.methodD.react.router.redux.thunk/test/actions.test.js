@@ -1,6 +1,7 @@
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { expect } from 'chai';
+import sinon from 'sinon';
 
 import {
   ROUTE_CHANGED,
@@ -64,7 +65,8 @@ describe('actions', () => {
   describe('storeName', () => {
     it('dispatches actions on success', (done) => {
       const store = mockStore({});
-      store.dispatch(storeName('Winter McGee'))
+      const spy = sinon.spy();
+      store.dispatch(storeName('Winter McGee', spy))
         .then(() => {
           const actualActions = store.getActions();
           const expectedActions = [
@@ -81,7 +83,8 @@ describe('actions', () => {
 
     it('dispatches actions on failure', (done) => {
       const store = mockStore({});
-      store.dispatch(storeName('Winter'))
+      const spy = sinon.spy();
+      store.dispatch(storeName('Winter', spy))
         .then(() => {
           const actualActions = store.getActions();
           const expectedActions = [
@@ -100,12 +103,13 @@ describe('actions', () => {
   describe('storePhone', () => {
     it('dispatches actions on success', (done) => {
       const store = mockStore({});
-      store.dispatch(storePhone('234'))
+      const spy = sinon.spy();
+      store.dispatch(storePhone('2345678', spy))
         .then(() => {
           const actualActions = store.getActions();
           const expectedActions = [
             {type: STORE_PHONE_REQUESTED},
-            {type: STORE_PHONE_SUCCEEDED, phone: '234'}
+            {type: STORE_PHONE_SUCCEEDED, phone: '2345678'}
           ];
           expect(actualActions).to.eql(expectedActions);
           done();

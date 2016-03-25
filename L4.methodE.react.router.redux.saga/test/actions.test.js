@@ -6,10 +6,12 @@ import * as actions from '../src/actions';
 describe('actions', () => {
   describe('storeName', () => {
     it('should return an action object', () => {
-      const actual = actions.storeName('Milton');
+      const actual = actions.storeName('Milton', 'onSuccess callback');
       const expected = {
         type: actions.STORE_NAME_REQUESTED,
-        name: 'Milton'
+        apiName: 'name',
+        name: 'Milton',
+        onSuccess: 'onSuccess callback'
       };
       expect(actual).to.eql(expected);
     });
@@ -39,10 +41,12 @@ describe('actions', () => {
 
   describe('storePhone', () => {
     it('should return an action object', () => {
-      const actual = actions.storePhone('234');
+      const actual = actions.storePhone('234', 'onSuccess callback');
       const expected = {
         type: actions.STORE_PHONE_REQUESTED,
-        phone: '234'
+        apiName: 'phone',
+        phone: '234',
+        onSuccess: 'onSuccess callback'
       };
       expect(actual).to.eql(expected);
     });
@@ -74,7 +78,8 @@ describe('actions', () => {
     it('should return an action object', () => {
       const actual = actions.callDoubleCheck();
       const expected = {
-        type: actions.CALL_DOUBLE_CHECK_REQUESTED
+        type: actions.CALL_DOUBLE_CHECK_REQUESTED,
+        apiName: 'check'
       };
       expect(actual).to.eql(expected);
     });

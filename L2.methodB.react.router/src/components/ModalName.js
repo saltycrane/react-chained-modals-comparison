@@ -21,12 +21,12 @@ class ModalName extends Component {
         </Modal.Header>
         <Modal.Body>
           {isRequesting && <p><em>Making fake ajax request...</em></p>}
-          {errorMsg && <p><em>{errorMsg}</em></p>}
           <Input
             label="Enter your name"
             type="text"
             bsSize="large"
             {...(errorMsg ? {bsStyle: 'error'} : {})}
+            help={errorMsg && <p><em>{errorMsg}</em></p>}
             ref={(c) => this._input = c}
           />
         </Modal.Body>

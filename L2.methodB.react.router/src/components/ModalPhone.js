@@ -7,13 +7,12 @@ import { request } from '../request-simulator';
 class ModalPhone extends Component {
   state = {
     isRequesting: false,
-    hasError: false,
     errorMsg: null
   };
 
   render() {
     const { step, ...props } = this.props;
-    const { isRequesting, hasError, errorMsg } = this.state;
+    const { isRequesting, errorMsg } = this.state;
 
     return (
       <Modal {...props}>
@@ -22,12 +21,12 @@ class ModalPhone extends Component {
         </Modal.Header>
         <Modal.Body>
           {isRequesting && <p><em>Making fake ajax request...</em></p>}
-          {errorMsg && <p><em>{errorMsg}</em></p>}
           <Input
             label="Enter your phone number"
             type="text"
             bsSize="large"
-            {...(hasError ? {bsStyle: 'error'} : {})}
+            {...(errorMsg ? {bsStyle: 'error'} : {})}
+            help={errorMsg && <p><em>{errorMsg}</em></p>}
             ref={(c) => this._input = c}
           />
         </Modal.Body>
@@ -43,16 +42,12 @@ class ModalPhone extends Component {
     const phone = this._input.getValue();
 
     this.setState({isRequesting: true, errorMsg: null});
-
     request('/api/phone', phone)
       .then(() => {
         gotoNext();
       })
-      .catch(() => {
-        this.setState({
-          isRequesting: false,
-          hasError: true
-        });
+      .catch((error) => {
+        this.setState({isRequesting: false, errorMsg: error});
       });
   };
 }

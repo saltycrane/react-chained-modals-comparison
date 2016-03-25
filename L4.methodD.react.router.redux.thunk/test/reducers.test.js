@@ -17,7 +17,7 @@ describe('reducers', () => {
     const initial = {
       modalList: ['/name', '/phone', '/done'],
       currIndex: null,
-      requestStatus: 'something that gets cleared',
+      isRequesting: false,
       formData: null
     };
     const action = {
@@ -28,7 +28,7 @@ describe('reducers', () => {
     const expected = {
       modalList: ['/name', '/phone', '/done'],
       currIndex: 1,
-      requestStatus: null,
+      isRequesting: false,
       formData: null
     };
     expect(actual).to.eql(expected);
@@ -37,18 +37,19 @@ describe('reducers', () => {
   it('should handle STORE_NAME_REQUESTED', () => {
     const initial = {
       errorMsg: 'something that gets cleared',
+      isRequesting: false,
       apiName: null,
-      requestStatus: null,
       formData: null
     };
     const action = {
-      type: STORE_NAME_REQUESTED
+      type: STORE_NAME_REQUESTED,
+      apiName: 'name'
     };
     const actual = reducer(initial, action);
     const expected = {
+      isRequesting: true,
       errorMsg: null,
       apiName: 'name',
-      requestStatus: 'REQUESTING',
       formData: null
     };
     expect(actual).to.eql(expected);
@@ -56,8 +57,8 @@ describe('reducers', () => {
 
   it('should handle STORE_NAME_SUCCEEDED', () => {
     const initial = {
+      isRequesting: true,
       errorMsg: 'something to be cleared',
-      requestStatus: null,
       formData: null
     };
     const action = {
@@ -66,8 +67,8 @@ describe('reducers', () => {
     };
     const actual = reducer(initial, action);
     const expected = {
+      isRequesting: false,
       errorMsg: null,
-      requestStatus: 'SUCCEEDED',
       formData: {
         name: 'Alex'
       }
@@ -77,8 +78,8 @@ describe('reducers', () => {
 
   it('should handle STORE_NAME_FAILED', () => {
     const initial = {
+      isRequesting: true,
       errorMsg: null,
-      requestStatus: null,
       formData: null
     };
     const action = {
@@ -87,8 +88,8 @@ describe('reducers', () => {
     };
     const actual = reducer(initial, action);
     const expected = {
+      isRequesting: false,
       errorMsg: 'it was their fault',
-      requestStatus: 'FAILED',
       formData: null
     };
     expect(actual).to.eql(expected);
@@ -97,18 +98,19 @@ describe('reducers', () => {
   it('should handle STORE_PHONE_REQUESTED', () => {
     const initial = {
       errorMsg: 'something that gets cleared',
+      isRequesting: false,
       apiName: null,
-      requestStatus: null,
       formData: null
     };
     const action = {
-      type: STORE_PHONE_REQUESTED
+      type: STORE_PHONE_REQUESTED,
+      apiName: 'phone'
     };
     const actual = reducer(initial, action);
     const expected = {
       errorMsg: null,
+      isRequesting: true,
       apiName: 'phone',
-      requestStatus: 'REQUESTING',
       formData: null
     };
     expect(actual).to.eql(expected);
@@ -116,8 +118,8 @@ describe('reducers', () => {
 
   it('should handle STORE_PHONE_SUCCEEDED', () => {
     const initial = {
+      isRequesting: true,
       errorMsg: 'something to be cleared',
-      requestStatus: null,
       formData: null
     };
     const action = {
@@ -126,8 +128,8 @@ describe('reducers', () => {
     };
     const actual = reducer(initial, action);
     const expected = {
+      isRequesting: false,
       errorMsg: null,
-      requestStatus: 'SUCCEEDED',
       formData: {
         phone: '234'
       }
@@ -137,8 +139,8 @@ describe('reducers', () => {
 
   it('should handle STORE_PHONE_FAILED', () => {
     const initial = {
+      isRequesting: true,
       errorMsg: null,
-      requestStatus: null,
       formData: null
     };
     const action = {
@@ -147,8 +149,8 @@ describe('reducers', () => {
     };
     const actual = reducer(initial, action);
     const expected = {
+      isRequesting: false,
       errorMsg: 'it was their fault',
-      requestStatus: 'FAILED',
       formData: null
     };
     expect(actual).to.eql(expected);

@@ -1,5 +1,6 @@
 import 'babel-polyfill';  // for generators used with redux-saga
 import { expect } from 'chai';
+import sinon from 'sinon';
 import { call, put, select } from 'redux-saga/effects';
 
 import { request } from '../src/request-simulator';
@@ -68,7 +69,11 @@ describe('sagas', () => {
 
   describe('storeName', () => {
     it('dispatches gotoNext() on success', () => {
-      const action = {name: 'Phil'};
+      const spy = sinon.spy();
+      const action = {
+        name: 'Phil',
+        onSuccess: spy
+      };
       const iter = sagas.storeName(action);
 
       const actual1 = iter.next().value;
@@ -80,12 +85,16 @@ describe('sagas', () => {
       expect(actual2).to.eql(expected2);
 
       const actual3 = iter.next().value;
-      const expected3 = put(actions.gotoNext());
+      const expected3 = call(spy);
       expect(actual3).to.eql(expected3);
     });
 
     it('dispatches storeNameFailed() on failure', () => {
-      const action = {name: 'Hill'};
+      const spy = sinon.spy();
+      const action = {
+        name: 'Hill',
+        onSuccess: spy
+      };
       const iter = sagas.storeName(action);
 
       const actual1 = iter.next().value;
@@ -99,8 +108,12 @@ describe('sagas', () => {
   });
 
   describe('storePhone', () => {
-    it('dispatches gotoNext() on success', () => {
-      const action = {phone: '234'};
+    it('calls onSuccess callback on success', () => {
+      const spy = sinon.spy();
+      const action = {
+        phone: '234',
+        onSuccess: spy
+      };
       const iter = sagas.storePhone(action);
 
       const actual1 = iter.next().value;
@@ -112,12 +125,16 @@ describe('sagas', () => {
       expect(actual2).to.eql(expected2);
 
       const actual3 = iter.next().value;
-      const expected3 = put(actions.gotoNext());
+      const expected3 = call(spy)
       expect(actual3).to.eql(expected3);
     });
 
     it('dispatches storePhoneFailed() on failure', () => {
-      const action = {phone: '234'};
+      const spy = sinon.spy();
+      const action = {
+        phone: '234',
+        onSuccess: spy
+      };
       const iter = sagas.storePhone(action);
 
       const actual1 = iter.next().value;

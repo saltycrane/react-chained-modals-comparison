@@ -3,6 +3,7 @@ import 'babel-polyfill';  // for async+await
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import { expect } from 'chai';
+import sinon from 'sinon';
 
 import {
   ROUTE_CHANGED,
@@ -32,11 +33,12 @@ describe('actions', () => {
   describe('storeName', () => {
     it('dispatches actions on failure', (done) => {
       const store = mockStore({});
-      store.dispatch(storeName('Winter'))
+      const spy = sinon.spy();
+      store.dispatch(storeName('Winter', spy))
         .then(() => {
           const actualActions = store.getActions();
           const expectedActions = [
-            {type: STORE_NAME_REQUESTED},
+            {type: STORE_NAME_REQUESTED, apiName: 'name'},
             {type: STORE_NAME_FAILED, errorMsg: 'Specify first and last name.'}
           ];
           expect(actualActions).to.eql(expectedActions);

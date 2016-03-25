@@ -10,7 +10,7 @@ describe('reducers', () => {
     const initial = {
       modalList: ['/name', '/phone', '/done'],
       currIndex: null,
-      requestStatus: 'something that gets cleared',
+      isRequesting: false,
       formData: null
     };
     const action = {
@@ -21,7 +21,7 @@ describe('reducers', () => {
     const expected = {
       modalList: ['/name', '/phone', '/done'],
       currIndex: 1,
-      requestStatus: null,
+      isRequesting: false,
       formData: null
     };
     expect(actual).to.eql(expected);
@@ -99,7 +99,7 @@ describe('reducers', () => {
     const expected = [
       {
         formData: 'form data object here',
-        requestStatus: 'REQUESTING',
+        isRequesting: true,
         errorMsg: null,
         apiName: 'check'
       },
@@ -130,7 +130,7 @@ describe('reducers', () => {
     const actual = reducer(initial, action);
     const expected = [
       {
-        requestStatus: 'REQUESTING',
+        isRequesting: true,
         errorMsg: null,
         apiName: 'name'
       },
@@ -148,7 +148,7 @@ describe('reducers', () => {
     const actual = reducer(initial, action);
     const expected = [
       {
-        requestStatus: 'REQUESTING',
+        isRequesting: true,
         errorMsg: null,
         apiName: 'phone'
       },
@@ -201,7 +201,7 @@ describe('reducers', () => {
     const actual = reducer(initial, action);
     const expected = [
       {
-        requestStatus: 'SUCCEEDED',
+        isRequesting: false,
         errorMsg: null
       },
       Effects.constant(actions.skipNext())
@@ -218,7 +218,7 @@ describe('reducers', () => {
     const actual = reducer(initial, action);
     const expected = [
       {
-        requestStatus: 'FAILED',
+        isRequesting: false,
         errorMsg: 'computer is too hot'
       },
       Effects.constant(actions.gotoNext())
@@ -234,7 +234,7 @@ describe('reducers', () => {
     };
     const actual = reducer(initial, action);
     const expected = {
-      requestStatus: 'FAILED',
+      isRequesting: false,
       errorMsg: 'the box was too heavy'
     };
     expect(actual).to.eql(expected);
@@ -248,7 +248,7 @@ describe('reducers', () => {
     };
     const actual = reducer(initial, action);
     const expected = {
-      requestStatus: 'FAILED',
+      isRequesting: false,
       errorMsg: 'the box was too light'
     };
     expect(actual).to.eql(expected);

@@ -46,8 +46,7 @@ export function storePhone(phone, onSuccess) {
 export function storePhoneSucceeded(phone) {
   return {
     type: STORE_PHONE_SUCCEEDED,
-    phone: phone,
-    apiName: 'phone'
+    phone: phone
   };
 }
 
