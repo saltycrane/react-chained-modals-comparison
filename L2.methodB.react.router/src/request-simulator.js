@@ -3,29 +3,33 @@ export function request(url, value) {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
       switch (url) {
-        case '/api/name':
+        case '/api/name': {
           if (value.split(/\s+/).length >= 2) {
             resolve();
           } else {
             reject('Specify first and last name.');
           }
           break;
-
-        case '/api/phone':
-          resolve();
+        }
+        case '/api/phone': {
+          if (value.replace(/\D/g, '').length >= 7) {
+            resolve();
+          } else {
+            reject('Phone number must be at least 7 digits.')
+          }
           break;
-
-        case '/api/check':
+        }
+        case '/api/check': {
           const { phone } = value;
-          const isValid = phone && phone.replace(/\D/g, '').length === 10
+          const isValid = (phone === '1234567890')
 
           if (isValid) {
             resolve();
           } else {
-            reject('Check failed.');
+            reject('Phone must be exactly 1234567890.');
           }
           break;
-
+        }
         default:
           reject('Invalid URL passed to simulated api.')
       }
